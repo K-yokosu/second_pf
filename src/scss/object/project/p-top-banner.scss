@@ -1,0 +1,25 @@
+
+.main-banner{
+    display: flex;
+    flex-direction: row;
+    height: 100vh;
+    width: $site-width;
+    background-color: rgb(78, 211, 178);
+    background-attachment: fixed;
+    background-size: cover;
+    background-repeat: no-repeat;
+    &_container{
+        line-height: 500px;
+    }
+    &_title{
+        font-size: $font-size_3l;
+        letter-spacing: $space_s;
+        font-family: $font_family_title;
+    }
+    &_discription{
+        letter-spacing: $space_s;
+    }
+}
+
+
+

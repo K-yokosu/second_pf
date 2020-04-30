@@ -1,0 +1,85 @@
+// ============================================================
+// Webフォント
+// ============================================================
+@import url('https://fonts.googleapis.com/css2?family=Noto+Serif+JP&family=Parisienne&display=swap');
+
+// ============================================================
+// 変数
+// ============================================================
+$font-color_default: #BAB4B4;
+$font-color_banner: #666;
+$font-color_contents: #333; 
+$font-color_bottom: #fff; 
+
+$back-color_main: #e5e7ec;
+$back-color_sub: #273132;
+$back-color_content: #FFFDFB;
+$back-color_content-hover: rgb(39, 103, 112);
+$back-color_form-submit: linear-gradient( 90deg,  rgba(240, 132, 117, 0.8) , rgba(173, 51, 42, 0.8));
+
+
+$font_family_default: 'Noto Serif JP', serif;
+$font_family_title: 'Parisienne', cursive;
+
+$site-width: 100%;
+$form-contact-margin: 2px 0 15px 0;
+
+$font-size_s: 12px;
+$font-size_m: 14px;
+$font-size_default: 16px;
+$font-size_l: 18px;
+$font-size_xl: 24px;
+$font-size_xxl: 30px;
+$font-size_3l: 45px;
+$font-size_4l: 60px;
+$font-size_5l: 80px;
+$font-size_6l: 110px;
+$font-size_7l: 130px;
+$font-size_8l: 160px;
+
+
+$space_s: 1px;
+$space_m: 10px;
+$space_l: 15px;
+$space_xl: 20px;
+$space_xxl: 30px;
+$space_3l: 40px;
+
+//border
+$border-form: 2px solid #E5E5E8;
+
+
+
+
+$anime_scale: scale 2s linear ;
+$anime_translateX: translateX 2s linear  ;
+
+// @keyframes rotate {
+//     0% {
+//       background-color: white;
+//       transform: rotateY(360deg);
+//     }
+//     100% {
+//         background-color: orange;
+
+//     }
+// }
+
+@keyframes scale {
+  0% {
+      transform: scale(-2,-2);
+  }
+  100% {
+      transform: scale(2,2);
+  }
+}
+// @keyframes translateX {
+//   0% {
+//     transform: translateX(30px);
+//     text-shadow: 30px 30px 20px;
+//   }
+//   100% {
+   
+//   }
+// }
+

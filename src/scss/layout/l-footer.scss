@@ -1,0 +1,12 @@
+.footer{
+    background-color: $back-color_sub;
+    color: $font-color_bottom;
+    width: $site-width;
+    font-size: $font-size_s;
+    height: 35px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: fixed;
+    bottom: 0;
+}

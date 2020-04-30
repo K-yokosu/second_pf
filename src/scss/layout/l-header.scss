@@ -1,0 +1,22 @@
+.header{
+    position: fixed;
+    color: $font-color_default;
+    background-color: $back-color-sub;
+    width: $site-width;
+    font-size: $font-size_default;
+    z-index: 2;
+    &-container{
+        display: flex;
+        flex-direction: row;
+        justify-content: space-between;
+        @include mq(lg){
+            align-items: flex-start;
+        }
+        &:last-child{
+            align-items: flex-end;
+            @include mq(lg){
+                align-items: flex-start;
+            }
+        }
+    }
+}

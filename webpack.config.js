@@ -30,10 +30,16 @@ module.exports = {
       },
       {
         test: /\.(sc|c)ss$/,  //loaderを適用させるファイルの拡張子を指定
+        exclude: /node_modules/,
         use:[
           MiniCssExtractPlugin.loader,  //cssを別ファイルに出力する
           // 'style-loader',   //jsに埋め込まれたcssをhtmlのstyleタグに加える
-          'css-loader',      //cssをjsのコードとして扱えるようにする
+          {
+            loader: 'css-loader',
+            options:{
+              url:true
+            },
+          },      //cssをjsのコードとして扱えるようにする
           'sass-loader'     //sassをcssに変換
         ]
       },
@@ -42,7 +48,7 @@ module.exports = {
         loader:'url-loader',           //画像データをbase64エンコードして、jsで扱えるようにする
         options:{                     //optionsを追加することでfile-loaderを有効化できる
           limit: 2048,                  //2kbを超えるファイルにfile-loaderを適用
-          name: './images/[name].[ext]'
+          name: './[name].[ext]'
         }
       },
       {
@@ -63,7 +69,8 @@ module.exports = {
     new MiniCssExtractPlugin({
       //[name] はデフォルトでmainが適用される
       //[hash] はユニークな値がてきようされ、ブラウザにキャッシュされることを回避する。更新を適用させるため
-      filename: '[name].[hash].css'
+      // filename: '[name].[hash].css'
+      filename: '[name].css'
     })
   ],
   optimization:{

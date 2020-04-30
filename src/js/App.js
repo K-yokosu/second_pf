@@ -1,41 +1,50 @@
-import React from 'react';
-import {
-  BrowserRouter as Router,
-  Switch,
-  Route,
-  Link,
-} from 'react-router-dom';
+// import React from 'react';
+// import {
+//   BrowserRouter as Router,
+//   Switch,
+//   Route,
+// } from 'react-router-dom';
 
-const App = () => (
-  <Router>
-    <div>
-      <nav>
-        <ul>
-          <li>
-            <Link to="/">Home</Link>
-          </li>
-          <li>
-            <Link to="/about">About</Link>
-          </li>
-          <li>
-            <Link to="/users">Users</Link>
-          </li>
-        </ul>
-      </nav>
 
-      <Switch>
-        <Route path="/about" component={About} />
-        <Route path="/users" component={Users} />
-        <Route path="/" component={Home} />
-      </Switch>
-    </div>
-  </Router>
-);
+// import Header from './components/header';
+// import ContactForm from './components/contactform';
+// import Merit from './components/merit';
+// import Banner from './components/banner';
+// import Footer from './components/footer';
+// import MyPage from './components/mypage';
 
-const Home = () => <h2>Home</h2>;
 
-const About = () => <h2>About</h2>;
+// const Home = () => (
+//   <>
+//     <Header />
+//     <main className="main" id="main">
+//       <Banner />
+//       <Merit />
+//       <ContactForm />
+//     </main>
+//     <Footer />
+//   </>
+// );
+// const MyHome = () => (
+//   <>
+//     <main className="main" id="main">
+//       <MyPage />
+//     </main>
+//     <Footer />
+//   </>
+// );
 
-const Users = () => <h2>Users</h2>;
+// const App = () => {
 
-export default App;
+//     return (
+//         <Router>
+//           <Switch>
+//             <Route path="/mypage" component={MyHome} />
+//             <Route path="/" component={Home} />
+//           </Switch>
+//         </Router>
+//     );
+// }
+
+
+// export default App;
