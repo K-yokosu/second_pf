@@ -1,21 +1,17 @@
 import React from 'react';
-import { Link } from 'react-router-dom';
 
-import Header from '../components/header'
-import Footer from '../components/footer'
-import ContactForm from '../components/contactform'
+import Header from '../components/header';
+import Footer from '../components/footer';
+import LoginForm from '../components/loginform';
 
-class Login extends React.Component {
-    render() {
-        return (
-            <>
-                <Header />
-                <ContactForm />
-                <Link to="/mypage">マイページへ</Link>
-                <Footer />
-            </>
-        );
-    }
-}
+const Login = () => (
+  <>
+    <Header />
+    <main className="main">
+      <LoginForm />
+    </main>
+    <Footer />
+  </>
+);
 
 export default Login;

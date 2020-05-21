@@ -34,12 +34,7 @@ module.exports = {
         use:[
           MiniCssExtractPlugin.loader,  //cssを別ファイルに出力する
           // 'style-loader',   //jsに埋め込まれたcssをhtmlのstyleタグに加える
-          {
-            loader: 'css-loader',
-            options:{
-              url:true
-            },
-          },      //cssをjsのコードとして扱えるようにする
+          'css-loader', //cssをjsのコードとして扱えるようにする
           'sass-loader'     //sassをcssに変換
         ]
       },

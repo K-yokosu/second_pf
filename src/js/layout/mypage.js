@@ -1,19 +1,13 @@
 import React from 'react';
 
-import Header from '../components/header'
-import Footer from '../components/footer'
-import M_comp from '../components/mypage'
+import CharacterList from '../components/characterList';
 
-class MyPage extends React.Component {
-    render() {
-        return (
-            <>
-                <Header />
-                <M_comp />
-                <Footer />
-            </>
-        );
-    }
-}
+const Mypage = () => (
+  <>
+    <main className="main">
+      <CharacterList />
+    </main>
+  </>
+);
 
-export default MyPage;
+export default Mypage;

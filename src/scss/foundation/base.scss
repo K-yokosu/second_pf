@@ -4,6 +4,7 @@
 html, body {
     width: $site-width;
     color: $font-color_default;
+    background: $back-color_main;
     font-size: $font-size_default;
     font-family: $font_family_default;
   }
@@ -16,7 +17,7 @@ html, body {
   }
   
   a {
-    color: $font-color_default;
+    color: $font-color_contents;
     text-decoration: none;
     transition: .3s;
   }

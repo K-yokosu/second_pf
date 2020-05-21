@@ -1,23 +1,26 @@
 import React from 'react';
-import { Switch, Route } from 'react-router-dom';
+import { BrowserRouter, Switch, Route, Link, Redirect, useHistory, useLocation } from 'react-router-dom';
 
-//screens
+// layout
 import Home from './home';
 import Login from './login';
 import Mypage from './mypage';
 
+
 class Default extends React.Component {
-    render() {
-        return (
-            <>
-                <Switch>
-                    <Route path="/mypage" component={Mypage} />
-                    <Route path="/login" component={Login} />
-                    <Route path="/" component={Home} />
-                </Switch>
-            </>
-        );
-    }
+  render() {
+    return (
+      <>
+        <BrowserRouter>
+          <Switch>
+            <Route exact path="/" component={Home} />
+            <Route exact path="/login" component={Login} />
+            <Route exact path="/mypage" component={Mypage} />
+          </Switch>
+        </BrowserRouter>
+      </>
+    );
+  }
 }
 
 export default Default;
