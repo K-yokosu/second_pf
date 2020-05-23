@@ -17,7 +17,7 @@ html, body {
   }
   
   a {
-    color: $font-color_contents;
+    color: $font-color_default;
     text-decoration: none;
     transition: .3s;
   }
@@ -25,4 +25,8 @@ html, body {
   a:hover {
     color: #eee;
     transition: .3s;
+  }
+
+  li{
+    list-style-type: none;
   }

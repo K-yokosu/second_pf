@@ -32,7 +32,7 @@ class Header extends React.Component {
       <>
         <header className="header">
           <div className="header-container">
-            <h1 className="header-title">CryptoTrend</h1>
+            <h1 className="header-title"><Link to="/">My Reference</Link></h1>
             <div className="header-menu__trigger" onClick={this.handleClickToggleDone} onKeyUp={this.handleClickToggleDone} role="button" tabIndex={0}>
               <div className={classNameTrigger} />
               <div className={classNameTrigger} />
@@ -40,10 +40,10 @@ class Header extends React.Component {
             </div>
             <nav className={classNameManu}>
               <ul className="header-menu__container">
-                <li className="header-menu__item"><Link to="/">home</Link></li>
-                <li className="header-menu__item"><a href="#merit" onClick={this.handleClickToggleDone} onKeyUp={this.handleClickToggleDone}>merit</a></li>
-                <li className="header-menu__item"><a href="#contact" onClick={this.handleClickToggleDone} onKeyUp={this.handleClickToggleDone}>contact</a></li>
-                <li className="header-menu__item"><Link to="/login">login</Link></li>
+                <li className="header-menu__item"><Link to="/scss" onClick={this.handleClickToggleDone}>scss</Link></li>
+                <li className="header-menu__item"><Link to="/js" onClick={this.handleClickToggleDone}>js</Link></li>
+                <li className="header-menu__item"><Link to="/react" onClick={this.handleClickToggleDone}>React</Link></li>
+                <li className="header-menu__item"><Link to="/router" onClick={this.handleClickToggleDone}>Router</Link></li>
               </ul>
             </nav>
           </div>

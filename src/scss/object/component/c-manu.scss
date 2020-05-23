@@ -79,5 +79,8 @@
         @include mq(lg){
             margin: 15px 0;
         }
+        & a{
+            color: $font-color_contents;
+        }
     }
 }

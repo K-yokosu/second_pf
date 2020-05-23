@@ -1,10 +1,10 @@
 import React from 'react';
-import { BrowserRouter, Switch, Route, Link, Redirect, useHistory, useLocation } from 'react-router-dom';
+import {
+  BrowserRouter, Switch, Route, Redirect,
+} from 'react-router-dom';
 
 // layout
 import Home from './home';
-import Login from './login';
-import Mypage from './mypage';
 
 
 class Default extends React.Component {
@@ -13,9 +13,19 @@ class Default extends React.Component {
       <>
         <BrowserRouter>
           <Switch>
-            <Route exact path="/" component={Home} />
-            <Route exact path="/login" component={Login} />
-            <Route exact path="/mypage" component={Mypage} />
+            <Route exact path="/scss">
+              <Home setTitle="scss" />
+            </Route>
+            <Route exact path="/js">
+              <Home setTitle="js" />
+            </Route>
+            <Route exact path="/react">
+              <Home setTitle="react" />
+            </Route>
+            <Route exact path="/router">
+              <Home setTitle="router" />
+            </Route>
+            <Redirect from="/" to="/scss" />
           </Switch>
         </BrowserRouter>
       </>

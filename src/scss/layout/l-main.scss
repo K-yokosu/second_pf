@@ -1,4 +1,6 @@
 .main{
+    display: flex;
+    flex-direction: row;
     color: $font-color_default;
     width: $site-width;
     font-size: $font-size_default;

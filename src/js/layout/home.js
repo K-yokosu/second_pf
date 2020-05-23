@@ -2,20 +2,22 @@ import React from 'react';
 
 import Header from '../components/header';
 import Footer from '../components/footer';
-import Banner from '../components/banner';
-import ContactForm from '../components/contactform';
-import Merit from '../components/merit';
+import Sidebar from '../components/sidebar';
+import Contents from '../components/contents';
 
-const Home = () => (
-  <>
-    <Header />
-    <main className="main">
-      <Banner />
-      <Merit />
-      <ContactForm />
-    </main>
-    <Footer />
-  </>
-);
+class Home extends React.Component {
+  render() {
+    return (
+      <>
+        <Header />
+        <main className="main">
+          <Sidebar setTitle={this.props.setTitle} />
+          <Contents />
+        </main>
+        <Footer />
+      </>
+    );
+  }
+}
 
 export default Home;
