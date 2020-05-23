@@ -1,7 +1,10 @@
 .header-title{
     margin: 20px;
-    width: 20%;
-    font-size: $font-size_3l;
+    width: 40%;
+    font-size: $font-size_xxl;
     letter-spacing: $space_s;
-    font-family: $font_family_title;
+    font-family: $font_family_default;
+    & a{
+        color: $font-color_contents;
+    }
 }

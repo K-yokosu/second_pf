@@ -2,7 +2,7 @@ import React from 'react';
 
 const Footer = () => (
   <footer className="footer">
-    <p>Copyright © CryptoTrend. All Rights Reserved</p>
+    <p>Copyright © My Reference. All Rights Reserved</p>
   </footer>
 );
 
