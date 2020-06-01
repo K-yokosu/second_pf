@@ -1,9 +1,10 @@
 .footer{
     background-color: $back-color_sub;
-    color: $font-color_contents;
+    color: $font-color_sub;
     width: $site-width;
     font-size: $font-size_s;
-    height: 35px;
+    height: 4vh;
+    min-height: 32px;
     display: flex;
     justify-content: center;
     align-items: center;

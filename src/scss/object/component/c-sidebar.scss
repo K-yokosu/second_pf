@@ -1,6 +1,36 @@
-.main_sidebar{
-    background: #fff;
+.sidebar{
+    background: $back-color_content-sub;
+    box-sizing: border-box;
     width: 20%;
-    padding: 20px;
-    margin: 20px;
+    min-width: 320px;
+    padding: 40px;
+    & h3{
+        font-size: $font-size_l;
+        margin-bottom: 10px;
+    }
+    & ul{
+        margin-bottom: 15px;
+        margin-left: 20px;
+    }
+    & li{
+        margin-bottom: 5px;
+    }
+    &__menuTitle{
+        display: flex;
+        &__trigger{
+            margin-left: 10px;
+            font-size: 20px;
+            transition: all .2s;
+            &__active {
+                transition: all .2s;
+                transform: rotate(90deg);
+            }
+        }
+        &__item{
+            display: none;
+            &__active{
+                display: block;
+            }
+        }
+    }
 }

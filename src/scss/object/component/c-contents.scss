@@ -1,6 +1,86 @@
-.main_contents{
-    background: #fff;
+.main-contents{
+    background: $back-color_content;
     width: 80%;
-    padding: 20px;
-    margin: 30px;
+    padding: 40px;
+    height: 88vh;
+    overflow: scroll;
+    &::-webkit-scrollbar {
+        display:none;
+    }
+    & h2{
+        font-size: $font-size_xl;
+        margin-bottom: 40px;
+    }
+    & h3{
+        font-size: $font-size_l;
+        margin-bottom: 20px;
+    }
+    & h4{
+        font-size: $font-size_l;
+        margin-bottom: 10px;
+    }
+    & p{
+        line-height: 25px;
+    }
+    &__no{
+        color: red;
+    }
+    &__chapterBox{
+        padding-left: 10px;
+        margin-bottom: 110px;
+    }
+    &__subChapterBox{
+        padding-left: 10px;
+        margin-bottom: 80px;
+    }
+    &__sentences{
+        margin: 15px 0;
+        width: 80%;
+    }
+    &__listBox{
+        margin: 0 15px;
+    }
+    &__numberList{
+        list-style-type: decimal;
+        line-height: 25px;
+    }
+    &__indent{
+        padding-left: 10px;
+    }
+    &__codeBox{
+        background: rgb(40, 44, 52);
+        border-radius: 5px;
+        margin: 10px 0;
+        padding: 15px;
+        color: $font-color_contents;
+        &__interval{
+            margin-bottom: 20px;
+        }
+        &__indent{
+            padding-left: 15px;
+        }
+        &__keyword{
+            color: rgb(197, 165, 197);
+            margin-right: 5px;
+        }
+        &__function{
+            color: rgb(121, 182, 242);
+            margin-right: 3px;
+        }
+        &__punctuation{
+            color: rgb(136, 198, 190);
+            margin-right: 3px;
+            margin-left: 3px;
+        }
+        &__string{
+            color: rgb(141, 200, 145);
+            margin-right: 3px;
+            margin-left: 3px;
+        }
+        &__operator{
+            color: rgb(215, 222, 234);
+            margin-right: 3px;
+            margin-left: 3px;
+        }
+    }
 }

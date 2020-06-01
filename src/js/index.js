@@ -6,5 +6,5 @@ import Default from './layout/default';
 
 ReactDom.render(
   <Default />,
-  document.getElementById('root'),
+  document.getElementById('root')
 );

@@ -27,10 +27,11 @@ class Header extends React.Component {
       'header-menu': true,
       'header-menu__active': isDone,
     });
+    
 
     return (
       <>
-        <header className="header">
+        <header id="header" className="header">
           <div className="header-container">
             <h1 className="header-title"><Link to="/">My Reference</Link></h1>
             <div className="header-menu__trigger" onClick={this.handleClickToggleDone} onKeyUp={this.handleClickToggleDone} role="button" tabIndex={0}>

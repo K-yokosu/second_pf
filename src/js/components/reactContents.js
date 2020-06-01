@@ -10,7 +10,7 @@ class Content extends React.Component {
 
     return (
       <div className="main-contents">
-          <h2 id="topTitle">React</h2>
+          <h2 id="topTitle">{ titles.title }</h2>
 
 
           {/* --------   Chapter1   ---------------------------------------------------------------------------- */}
@@ -35,9 +35,7 @@ class Content extends React.Component {
                         JavaScriptの式を中括弧で囲むことで、JSXに埋め込むことができます。
                         下記例では関数を埋め込んでいます。
                       </p>
-                  </div>
-                  <div className="main-contents__codeBox">
-                      <pre>
+                      <pre className="main-contents__codeBox">
                           <code>
                               <p>
                                 <span className="main-contents__codeBox__keyword">function</span>
@@ -178,9 +176,7 @@ class Content extends React.Component {
                       <p className="main-contents__sentences">
                         また、inputなどの空タグを使用する場合は、/>でタグを閉じることができます。
                       </p>
-                  </div>
-                  <div className="main-contents__codeBox">
-                      <pre>
+                      <pre className="main-contents__codeBox">
                           <code>
                               <p>
                                 後ほど修正
@@ -201,9 +197,7 @@ class Content extends React.Component {
                          は JSX を React.createElement() の呼び出しへとコンパイルします。
                          以下の 2 つの例は等価です：
                       </p>
-                  </div>
-                  <div className="main-contents__codeBox">
-                      <pre>
+                      <pre className="main-contents__codeBox">
                           <code>
                               <p>
                                 後ほど修正
@@ -215,9 +209,7 @@ class Content extends React.Component {
                               </p>
                           </code>
                       </pre>
-                  </div>
-                  <div className="main-contents__codeBox">
-                      <pre>
+                      <pre className="main-contents__codeBox">
                           <code>
                               <p>
                                 後ほど修正
@@ -229,14 +221,10 @@ class Content extends React.Component {
                               </p>
                           </code>
                       </pre>
-                  </div>
-                  <div className="main-contents__indent">
                       <p className="main-contents__sentences">
                         React.createElement() は以下のようなオブジェクトを生成します：
                       </p>
-                  </div>
-                  <div className="main-contents__codeBox">
-                      <pre>
+                      <pre className="main-contents__codeBox">
                           <code>
                               <p>
                                 後ほど修正
@@ -250,8 +238,6 @@ class Content extends React.Component {
                               </p>
                           </code>
                       </pre>
-                  </div>
-                  <div className="main-contents__indent">
                       <p className="main-contents__sentences">
                         このようなオブジェクトは “React 要素” と呼ばれます。
                         これらは画面に表示したいものの説明書きとして考えることができます。
@@ -274,9 +260,7 @@ class Content extends React.Component {
                         React は React要素を元に DOM を構築します。
                         React は通常この DOM を HTMLファイルの下記のような要素に持たせています。
                       </p>
-                  </div>
-                  <div className="main-contents__codeBox">
-                      <pre>
+                      <pre className="main-contents__codeBox">
                           <code>
                               <p>
                                 後ほど修正
@@ -284,14 +268,10 @@ class Content extends React.Component {
                               </p>
                           </code>
                       </pre>
-                  </div>
-                  <div className="main-contents__indent">
                       <p className="main-contents__sentences">
                         React要素をルートDOM ノードにレンダリングするには、その 2 つを ReactDOM.render() に渡すことで実現します。
                       </p>
-                  </div>
-                  <div className="main-contents__codeBox">
-                      <pre>
+                      <pre className="main-contents__codeBox">
                           <code>
                               <p>
                                 後ほど修正
@@ -300,14 +280,10 @@ class Content extends React.Component {
                               </p>
                           </code>
                       </pre>
-                  </div>
-                  <div className="main-contents__indent">
                       <p className="main-contents__sentences">
                           React要素はイミュータブル (不変) オブジェクトなので、一度作成されると変更できません。
                         React要素を更新する唯一の方法は、新しい React要素を作成して ReactDOM.render() に渡すことで実現します。
                       </p>
-                  </div>
-                  <div className="main-contents__indent">
                       <p className="main-contents__sentences">
                           また、React DOM は要素とその子要素を以前のものと比較し、変更された DOM の更新のみを行います。
                         {/* これによりブラウザの負担を軽減します。 */}
@@ -330,16 +306,12 @@ class Content extends React.Component {
                         コンポーネントには関数コンポーネントとクラスコンポーネントがあります。
                         関数を使うかクラスを使うかで呼び名が変わります。
                       </p>
-                  </div>
-                  <div className="main-contents__indent">
                       <p className="main-contents__sentences">
                       　下記2つのコンポーネントは React の視点からは等価です。
                         データの入った "props" というオブジェクトを引数として受取り、 React要素を返しています。
                         props については後ほど説明します。
                       </p>
-                  </div>
-                  <div className="main-contents__codeBox">
-                      <pre>
+                      <pre className="main-contents__codeBox">
                           <code>
                               <p>
                                 後ほど修正
@@ -349,9 +321,7 @@ class Content extends React.Component {
                               </p>
                           </code>
                       </pre>
-                  </div>
-                  <div className="main-contents__codeBox">
-                      <pre>
+                      <pre className="main-contents__codeBox">
                           <code>
                               <p>
                                 後ほど修正
@@ -372,9 +342,7 @@ class Content extends React.Component {
                       <p className="main-contents__sentences">
                         前節では、DOM のタグを表す React要素のみを扱いましたがコンポーネントを表すこともできます。
                       </p>
-                  </div>
-                  <div className="main-contents__codeBox">
-                      <pre>
+                      <pre className="main-contents__codeBox">
                           <code>
                               <p>
                                 後ほど修正
@@ -382,16 +350,12 @@ class Content extends React.Component {
                               </p>
                           </code>
                       </pre>
-                  </div>
-                  <div className="main-contents__indent">
                       <p className="main-contents__sentences">
                         React がユーザ定義のコンポーネントを呼び出す時、
                         JSX に書かれている属性と子要素を単一のオブジェクトとしてこのコンポーネントに渡します。
                         このオブジェクトのことを “props” と呼びます。
                       </p>
-                  </div>
-                  <div className="main-contents__codeBox">
-                      <pre>
+                      <pre className="main-contents__codeBox">
                           <code>
                               <p>
                                 後ほど修正
@@ -407,16 +371,12 @@ class Content extends React.Component {
                               </p>
                           </code>
                       </pre>
-                  </div>
-                  <div className="main-contents__indent">
                       <ol className="main-contents__listBox">
                         <li className="main-contents__numberList">ReactDOM.render() を呼び出します。</li>
                         <li className="main-contents__numberList">Welcomeコンポーネントを呼び出し、引数としてnameを渡します。</li>
                         <li className="main-contents__numberList">Welcome コンポーネントは出力として h1 タグを返します。</li>
                         <li className="main-contents__numberList">React DOM は h1 タグ に一致するよう、DOM を効率的に更新します。</li>
                       </ol>
-                  </div>
-                  <div className="main-contents__indent">
                       <p className="main-contents__sentences">
                         <strong>補足: コンポーネント名は常に大文字で始めてください。</strong><br />
                         React は小文字で始まるコンポーネントを DOM タグとして扱います。
@@ -438,9 +398,7 @@ class Content extends React.Component {
                         自分自身の props は決して変更してはいけません。
                         この sum 関数を見てみましょう
                       </p>
-                  </div>
-                  <div className="main-contents__codeBox">
-                      <pre>
+                      <pre className="main-contents__codeBox">
                           <code>
                               <p>
                                 後ほど修正
@@ -450,20 +408,14 @@ class Content extends React.Component {
                               </p>
                           </code>
                       </pre>
-                  </div>
-                  <div className="main-contents__indent">
                       <p className="main-contents__sentences">
                         このような関数は入力されたものを変更しようとせず、
                         同じ入力に対し同じ結果を返すので “純粋” であると言われます。
                       </p>
-                  </div>
-                  <div className="main-contents__indent">
                       <p className="main-contents__sentences">
                         対照的に、以下の関数は自身への入力を変更するため純関数ではありません
                       </p>
-                  </div>
-                  <div className="main-contents__codeBox">
-                      <pre>
+                      <pre className="main-contents__codeBox">
                           <code>
                               <p>
                                 後ほど修正
@@ -473,13 +425,9 @@ class Content extends React.Component {
                               </p>
                           </code>
                       </pre>
-                  </div>
-                  <div className="main-contents__indent">
                       <p className="main-contents__sentences">
                         React は柔軟ですが、1 つだけ厳格なルールがあります
                       </p>
-                  </div>
-                  <div className="main-contents__indent">
                       <p className="main-contents__sentences">
                         全ての React コンポーネントは、自己の props に対して純関数のように振る舞わねばなりません。
                         ようは読み取り専用ということです。
@@ -488,7 +436,7 @@ class Content extends React.Component {
               </div>
 
           </div>
-{/* cha4-6掃除完了 */}
+
           {/* --------   Chapter4   ---------------------------------------------------------------------------- */}
           <div className="main-contents__chapterBox">
               <h3 id="mainTitle4">{ titles.chapter4.main }</h3>
