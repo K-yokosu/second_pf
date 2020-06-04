@@ -71,7 +71,7 @@ class Side extends React.Component {
   }
   handleClickToggleDoneScss1 = () => {
     this.setState((prevState) => ({
-      scssChapter1: !prevState.reactChapter1,
+      scssChapter1: !prevState.scssChapter1,
     }));
   }
   handleClickToggleDoneJs1 = () => {
