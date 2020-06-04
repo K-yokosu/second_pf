@@ -27,7 +27,7 @@ class Header extends React.Component {
       'header-menu': true,
       'header-menu__active': isDone,
     });
-    
+
 
     return (
       <>
