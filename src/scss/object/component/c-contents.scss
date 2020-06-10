@@ -1,7 +1,7 @@
 .main-contents{
     background: $back-color_content;
     width: 80%;
-    padding: 40px;
+    padding: 70px 100px;
     height: 88vh;
     overflow: scroll;
     &::-webkit-scrollbar {
@@ -13,11 +13,11 @@
     }
     & h3{
         font-size: $font-size_l;
-        margin-bottom: 20px;
+        margin-bottom: 28px;
     }
     & h4{
         font-size: $font-size_l;
-        margin-bottom: 10px;
+        margin-bottom: 18px;
     }
     & p{
         line-height: 25px;
@@ -35,7 +35,6 @@
     }
     &__sentences{
         margin: 15px 0;
-        width: 80%;
     }
     &__listBox{
         margin: 0 15px;
@@ -50,7 +49,7 @@
     &__codeBox{
         background: rgb(40, 44, 52);
         border-radius: 5px;
-        margin: 10px 0;
+        margin: 20px 0;
         padding: 15px;
         color: $font-color_contents;
         &__interval{
@@ -67,6 +66,10 @@
             color: rgb(121, 182, 242);
             margin-right: 3px;
         }
+        &__attribute{
+            color: rgb(121, 143, 242);
+            margin-right: 3px;
+        }
         &__punctuation{
             color: rgb(136, 198, 190);
             margin-right: 3px;
@@ -81,6 +84,9 @@
             color: rgb(215, 222, 234);
             margin-right: 3px;
             margin-left: 3px;
+        }
+        &__element{
+            color: rgb(182, 241, 126);
         }
     }
 }

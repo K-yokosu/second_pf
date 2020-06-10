@@ -16,6 +16,107 @@ class Content extends React.Component {
   stringComponent = string => {
     return (<span className="main-contents__codeBox__string">{string}</span>);
   }
+  elementComponent = element => {
+    return (
+      <>
+        {this.punctuationComponent('<')}
+        <span className="main-contents__codeBox__element">{element}</span>
+        {this.punctuationComponent('>')}
+      </>
+      );
+  }
+  simpleComponent = element => {
+    return (
+      <>
+        {this.punctuationComponent('<')}
+        <span className="main-contents__codeBox__element">{element}</span>
+        {this.punctuationComponent(' />')}
+      </>
+      );
+  }
+  attributeElementComponent = (element, attribute, string) => {
+    return (
+      <>
+        {this.punctuationComponent('<')}
+        <span className="main-contents__codeBox__element">{element}</span>
+        <span className="main-contents__codeBox__attribute"> {attribute}</span>
+        {this.operatorComponent('=')}
+        {string}
+        {this.punctuationComponent('>')}
+      </>
+      );
+  }
+  routeElementComponent = ( element, path ) => {
+    return (
+      <>
+        <span className="main-contents__codeBox__punctuation">{'<'}</span>
+        <span className="main-contents__codeBox__element">{element}</span>
+        {this.keywordComponent(' path')}
+        {this.operatorComponent('=')}
+        {this.stringComponent(path)}
+        <span className="main-contents__codeBox__punctuation">{'>'}</span>
+      </>
+      );
+  }
+  closeElementComponent = element => {
+    return (
+      <>
+        <span className="main-contents__codeBox__punctuation">{'</'}</span>
+        <span className="main-contents__codeBox__element">{element}</span>
+        <span className="main-contents__codeBox__punctuation">{'>'}</span>
+      </>
+      );
+  }
+  linkElementComponent = ( path ) => {
+    return (
+      <>
+        <span className="main-contents__codeBox__punctuation">{'<'}</span>
+        <span className="main-contents__codeBox__element">Link</span>
+        {this.keywordComponent(' to')}
+        {this.operatorComponent('=')}
+        {this.stringComponent(path)}
+        <span className="main-contents__codeBox__punctuation">{'>'}</span>
+      </>
+      );
+  }
+  redirectElementComponent = ( path ) => {
+    return (
+      <>
+        <span className="main-contents__codeBox__punctuation">{'<'}</span>
+        <span className="main-contents__codeBox__element">Redirect</span>
+        {this.keywordComponent(' to')}
+        {this.operatorComponent('=')}
+        {this.stringComponent(path)}
+        <span className="main-contents__codeBox__punctuation">{'>'}</span>
+      </>
+      );
+  }
+  navLinkElementComponent = ( style, path ) => {
+    return (
+      <>
+        <span className="main-contents__codeBox__punctuation">{'<'}</span>
+        <span className="main-contents__codeBox__element">NavLink</span>
+        {this.keywordComponent(' activeStyle')}
+        {this.operatorComponent('=')}
+        {this.punctuationComponent('{')}
+        {this.stringComponent(style)}
+        {this.punctuationComponent('}')}
+        {this.keywordComponent(' to')}
+        {this.operatorComponent('=')}
+        {this.stringComponent(path)}
+        <span className="main-contents__codeBox__punctuation">{'>'}</span>
+      </>
+      );
+  }
+  somethingComponent = element => {
+    return (
+      <>
+        <span className="main-contents__codeBox__punctuation">{'<'}</span>
+        <span className="main-contents__codeBox__element">{element}</span>
+        <span className="main-contents__codeBox__punctuation">{' />'}</span>
+      </>
+      );
+  }
 
   render() {
     // 最後にコメント確認する
@@ -23,6 +124,7 @@ class Content extends React.Component {
     // contentsの左右にアロー置いて、押したら次とか前のぺーじ行けるみたいな　これはrouter勉強してからかな
     // 開いているページのサイドのリンクの色をかえるそしてchapterタイトルを開かせる
     // codeはconst or component化して返す。
+    // headerのLinkをNavLinkにしてcolor指定
     const { titles, setContents } = this.props;
 
     const scssContents = <div className="main-contents">
@@ -43,9 +145,9 @@ class Content extends React.Component {
                                       <h4 id="subTitle_1-1">{ titles.react.chapter1.sub1 }</h4>
                                       <div className="main-contents__indent">
                                           <p className="main-contents__sentences">
-                                            JSXとはマークアップとロジック(プログラム)を同ファイルに集約できるJavaScript構文の拡張言語です。
+                                            JSXとはマークアップとロジック(プログラム)を同じファイルに集約できるJavaScript構文の拡張言語です。
                                             これまでの開発ではHTMLファイルとJSファイルで役割を分けていましたが、JSXを使うことによりそれら
-                                            が統合され、理解しやすく見やすいコードを書くことができます。
+                                            が統合され、より理解しやすく見やすいコードを書くことができます。
                                           </p>
                                       </div>
                                   </div>
@@ -98,20 +200,19 @@ class Content extends React.Component {
                                                     <p>
                                                       firstName
                                                       {this.operatorComponent(':')}
-                                                      {this.stringComponent('Harper')}
+                                                      {this.stringComponent("'Harper'")}
                                                       {this.punctuationComponent(',')}
                                                       <br />
                                                     </p>
                                                     <p>
                                                       lastName
                                                       {this.operatorComponent(':')}
-                                                      {this.stringComponent('Perez')}
+                                                      {this.stringComponent("'Perez'")}
                                                       <br />
                                                     </p>
                                                   </div>
                                                   <p className="main-contents__codeBox__interval">
-                                                    {this.punctuationComponent('}')}
-                                                    {this.punctuationComponent(';')}
+                                                    {this.punctuationComponent('};')}
                                                     <br />
                                                   </p>
                                                   <p>
@@ -123,9 +224,7 @@ class Content extends React.Component {
                                                   </p>
                                                   <div className="main-contents__codeBox__indent">
                                                     <p>
-                                                      {this.punctuationComponent('<')}
-                                                      h1
-                                                      {this.punctuationComponent('>')}
+                                                      {this.elementComponent('h1')}
                                                       <br />
                                                     </p>
                                                     <p>
@@ -142,15 +241,12 @@ class Content extends React.Component {
                                                       </div>
                                                     </p>
                                                     <p>
-                                                      {this.punctuationComponent('<')}
-                                                      /h1
-                                                      {this.punctuationComponent('>')}
+                                                      {this.closeElementComponent('h1')}
                                                       <br />
                                                     </p>
                                                   </div>
                                                   <p className="main-contents__codeBox__interval">
-                                                    {this.punctuationComponent(')')}
-                                                    {this.punctuationComponent(';')}
+                                                    {this.punctuationComponent(');')}
                                                     <br />
                                                   </p>
                                                   <p>
@@ -158,27 +254,23 @@ class Content extends React.Component {
                                                     {this.punctuationComponent('.')}
                                                     {this.funcNameComponent('render')}
                                                     {this.punctuationComponent('(')}
-                                                    <br />
                                                   </p>
                                                   <div className="main-contents__codeBox__indent">
                                                     <p>
                                                       element
                                                       {this.punctuationComponent(',')}
-                                                      <br />
                                                     </p>
                                                     <p>
                                                       document
                                                       {this.punctuationComponent('.')}
                                                       {this.funcNameComponent('getElementById')}
                                                       {this.punctuationComponent('(')}
-                                                      {this.stringComponent('root')}
+                                                      {this.stringComponent("'root'")}
                                                       {this.punctuationComponent(')')}
-                                                      <br />
                                                     </p>
                                                   </div>
                                                   <p className="main-contents__codeBox__interval">
-                                                    {this.punctuationComponent(')')}
-                                                    {this.punctuationComponent(';')}
+                                                    {this.punctuationComponent(');')}
                                                     <br />
                                                   </p>
                                               </code>
@@ -201,10 +293,40 @@ class Content extends React.Component {
                                           <pre className="main-contents__codeBox">
                                               <code>
                                                   <p>
-                                                    後ほど修正
-                                                    {/* const element = <div className="name"></div>;
-                                                    const element = <div className="name" {adress} ></div>; //parsing error ...
-                                                    const element = <input type="text" />; */}
+                                                    {this.keywordComponent('const')}
+                                                    element
+                                                    {this.operatorComponent('=')}
+                                                    {this.attributeElementComponent('div', 'className','"name"')}
+                                                    {this.closeElementComponent('div')}
+                                                    {this.punctuationComponent(';')}
+                                                  </p>
+                                                  <p>
+                                                    {this.keywordComponent('const')}
+                                                    element
+                                                    {this.operatorComponent('=')}
+                                                    {this.punctuationComponent('<')}
+                                                    <span className="main-contents__codeBox__element">div</span>
+                                                    <span className="main-contents__codeBox__attribute"> className</span>
+                                                    {this.operatorComponent('=')}
+                                                    "name"
+                                                    {this.punctuationComponent(' {')}
+                                                    adress
+                                                    {this.punctuationComponent('}')}
+                                                    {this.punctuationComponent('>')}
+                                                    {this.closeElementComponent('div')}
+                                                    {this.punctuationComponent(';')}
+                                                    {this.stringComponent(' //parsing error ...')}
+                                                  </p>
+                                                  <p>
+                                                    {this.keywordComponent('const')}
+                                                    element
+                                                    {this.operatorComponent('=')}
+                                                    {this.punctuationComponent('<')}
+                                                    <span className="main-contents__codeBox__element">input</span>
+                                                    <span className="main-contents__codeBox__attribute"> type</span>
+                                                    {this.operatorComponent('=')}
+                                                    "text"
+                                                    {this.punctuationComponent(' />;')}
                                                   </p>
                                               </code>
                                           </pre>
@@ -222,24 +344,59 @@ class Content extends React.Component {
                                           <pre className="main-contents__codeBox">
                                               <code>
                                                   <p>
-                                                    後ほど修正
-                                                    {/* const element = (
-                                                      <h1 className="greeting">
+                                                    {this.keywordComponent('const')}
+                                                    element
+                                                    {this.operatorComponent('=')}
+                                                    {this.punctuationComponent('(')}
+                                                  </p>
+                                                  <div className="main-contents__codeBox__indent">
+                                                    <p>
+                                                      {this.attributeElementComponent('h1', 'className','"greeting"')}
+                                                    </p>
+                                                    <div className="main-contents__codeBox__indent">
+                                                      <p>
                                                         Hello, world!
-                                                      </h1>
-                                                    ); */}
+                                                      </p>
+                                                    </div>
+                                                    <p>
+                                                      {this.closeElementComponent('h1')}
+                                                    </p>
+                                                  </div>
+                                                  <p>
+                                                    {this.punctuationComponent(');')}
                                                   </p>
                                               </code>
                                           </pre>
                                           <pre className="main-contents__codeBox">
                                               <code>
                                                   <p>
-                                                    後ほど修正
-                                                    {/* const element = React.createElement(
-                                                      'h1',
-                                                      {className: 'greeting'},
-                                                      'Hello, world!'
-                                                    ); */}
+                                                    {this.keywordComponent('const')}
+                                                    element
+                                                    {this.operatorComponent(' = ')}
+                                                    React
+                                                    {this.punctuationComponent('.')}
+                                                    {this.funcNameComponent('createElement')}
+                                                    {this.punctuationComponent('(')}
+                                                  </p>
+                                                  <div className="main-contents__codeBox__indent">
+                                                    <p>
+                                                      {this.stringComponent("'h1'")}
+                                                      {this.punctuationComponent(',')}
+                                                    </p>
+                                                    <p>
+                                                      {this.punctuationComponent('{')}
+                                                      <span className="main-contents__codeBox__attribute">className</span>
+                                                      {this.punctuationComponent(':')}
+                                                      {this.stringComponent( "'greeting'")}
+                                                      {this.punctuationComponent('}')}
+                                                      {this.punctuationComponent(',')}
+                                                    </p>
+                                                    <p>
+                                                      {this.stringComponent("'Hello, world!'")}
+                                                    </p>
+                                                  </div>
+                                                  <p>
+                                                    {this.punctuationComponent(');')}
                                                   </p>
                                               </code>
                                           </pre>
@@ -249,14 +406,42 @@ class Content extends React.Component {
                                           <pre className="main-contents__codeBox">
                                               <code>
                                                   <p>
-                                                    後ほど修正
-                                                    {/* const element = {
-                                                      type: 'h1',
-                                                      props: {
-                                                        className: 'greeting',
-                                                        children: 'Hello, world!'
-                                                      }
-                                                    }; */}
+                                                    {this.keywordComponent('const')}
+                                                    element
+                                                    {this.operatorComponent('=')}
+                                                    {this.punctuationComponent('{')}
+                                                  </p>
+                                                  <div className="main-contents__codeBox__indent">
+                                                    <p>
+                                                      <span className="main-contents__codeBox__attribute">type</span>
+                                                      {this.punctuationComponent(':')}
+                                                      {this.stringComponent("'h1'")}
+                                                      {this.punctuationComponent(',')}
+                                                    </p>
+                                                    <p>
+                                                      <span className="main-contents__codeBox__attribute">props</span>
+                                                      {this.punctuationComponent(':')}
+                                                      {this.punctuationComponent('{')}
+                                                    </p>
+                                                    <div className="main-contents__codeBox__indent">
+                                                      <p>
+                                                        <span className="main-contents__codeBox__attribute">className</span>
+                                                        {this.punctuationComponent(':')}
+                                                        {this.stringComponent( "'greeting'")}
+                                                        {this.punctuationComponent(',')}
+                                                      </p>
+                                                      <p>
+                                                        <span className="main-contents__codeBox__attribute">children</span>
+                                                        {this.punctuationComponent(':')}
+                                                        {this.stringComponent( "'Hello, world!'")}
+                                                      </p>
+                                                    </div>
+                                                    <p>
+                                                      {this.punctuationComponent('}')}
+                                                    </p>
+                                                  </div>
+                                                  <p>
+                                                    {this.punctuationComponent('};')}
                                                   </p>
                                               </code>
                                           </pre>
@@ -269,7 +454,7 @@ class Content extends React.Component {
                                   </div>
 
                               </div>
-
+{/* １のみ確認 */}
                               {/* --------   Chapter2   ---------------------------------------------------------------------------- */}                   
                               <div className="main-contents__chapterBox">
                                   <h3 id="mainTitle2">{ titles.react.chapter2.main }</h3>
@@ -285,8 +470,8 @@ class Content extends React.Component {
                                           <pre className="main-contents__codeBox">
                                               <code>
                                                   <p>
-                                                    後ほど修正
-                                                    {/* <div id="root"></div> */}
+                                                    {this.attributeElementComponent('div','id','"root"')}
+                                                    {this.closeElementComponent('div')}
                                                   </p>
                                               </code>
                                           </pre>
@@ -296,9 +481,36 @@ class Content extends React.Component {
                                           <pre className="main-contents__codeBox">
                                               <code>
                                                   <p>
-                                                    後ほど修正
-                                                    {/* const element = <h1>Hello, world</h1>;
-                                                    ReactDOM.render(element, document.getElementById('root')); */}
+                                                    {this.keywordComponent('const')}
+                                                    element
+                                                    {this.operatorComponent('=')}
+                                                    {this.elementComponent('h1')}
+                                                    Hello, world
+                                                    {this.closeElementComponent('h1')}
+                                                    {this.punctuationComponent(';')}
+                                                  </p>
+                                                  <p>
+                                                    ReactDOM
+                                                    {this.punctuationComponent('.')}
+                                                    {this.funcNameComponent('render')}
+                                                    {this.punctuationComponent('(')}
+                                                  </p>
+                                                  <div className="main-contents__codeBox__indent">
+                                                    <p>
+                                                      element
+                                                      {this.punctuationComponent(',')}
+                                                    </p>
+                                                    <p>
+                                                      document
+                                                      {this.punctuationComponent('.')}
+                                                      {this.funcNameComponent('getElementById')}
+                                                      {this.punctuationComponent('(')}
+                                                      {this.stringComponent('root')}
+                                                      {this.punctuationComponent(')')}
+                                                    </p>
+                                                  </div>
+                                                  <p className="main-contents__codeBox__interval">
+                                                    {this.punctuationComponent(');')}
                                                   </p>
                                               </code>
                                           </pre>
@@ -336,22 +548,63 @@ class Content extends React.Component {
                                           <pre className="main-contents__codeBox">
                                               <code>
                                                   <p>
-                                                    後ほど修正
-                                                    {/* function Welcome(props) {
-                                                      return <h1>Hello, {props.name}</h1>;
-                                                    } */}
+                                                    {this.keywordComponent('function')}
+                                                    {this.funcNameComponent('Welcome')}
+                                                    {this.punctuationComponent('(')}
+                                                    props
+                                                    {this.punctuationComponent(')')}
+                                                    {this.punctuationComponent('{')}
+                                                  </p>
+                                                  <div className="main-contents__codeBox__indent">
+                                                    <p>
+                                                      {this.keywordComponent('return')}
+                                                      {this.elementComponent('h1')}
+                                                      Hello,
+                                                      {this.punctuationComponent('{')}
+                                                      props.name
+                                                      {this.punctuationComponent('}')}
+                                                      {this.closeElementComponent('h1')}
+                                                      {this.punctuationComponent(';')}
+                                                    </p>
+                                                  </div>
+                                                  <p>
+                                                    {this.punctuationComponent('}')}
                                                   </p>
                                               </code>
                                           </pre>
                                           <pre className="main-contents__codeBox">
                                               <code>
                                                   <p>
-                                                    後ほど修正
-                                                    {/* class Welcome extends React.Component {
-                                                      render() {
-                                                        return <h1>Hello, {this.props.name}</h1>;
-                                                      }
-                                                    } */}
+                                                    {this.keywordComponent('class')}
+                                                    {this.funcNameComponent('Welcome')}
+                                                    {this.keywordComponent('extends')}
+                                                    {this.keywordComponent('React.Component')}
+                                                    {this.punctuationComponent('{')}
+                                                  </p>
+                                                  <div className="main-contents__codeBox__indent">
+                                                    <p>
+                                                      {this.keywordComponent('render')}
+                                                      {this.punctuationComponent('()')}
+                                                      {this.punctuationComponent('{')}
+                                                    </p>
+                                                    <div className="main-contents__codeBox__indent">
+                                                      <p>
+                                                        {this.keywordComponent('return')}
+                                                        {this.elementComponent('h1')}
+                                                        Hello,
+                                                        {this.punctuationComponent('{')}
+                                                        this.props.name
+                                                        {this.punctuationComponent('}')}
+                                                        {this.closeElementComponent('h1')}
+                                                        {this.punctuationComponent(';')}
+                                                      </p>
+                                                    </div>
+                                                    <p>
+                                                      {this.punctuationComponent('}')}
+                                                    </p>
+                                                  </div>
+                                                  <p>
+                                                    {this.punctuationComponent('}')}
                                                   </p>
                                               </code>
                                           </pre>
@@ -367,8 +620,15 @@ class Content extends React.Component {
                                           <pre className="main-contents__codeBox">
                                               <code>
                                                   <p>
-                                                    後ほど修正
-                                                    {/* const element = <Welcome name="Sara" />; */}
+                                                    {this.keywordComponent('const')}
+                                                    element
+                                                    {this.operatorComponent('=')}
+                                                    {this.punctuationComponent('<')}
+                                                    <span className="main-contents__codeBox__element">Welcome</span>
+                                                    <span className="main-contents__codeBox__attribute"> name</span>
+                                                    {this.operatorComponent('=')}
+                                                    "Sara"
+                                                    {this.punctuationComponent(' />;')}
                                                   </p>
                                               </code>
                                           </pre>
@@ -380,16 +640,62 @@ class Content extends React.Component {
                                           <pre className="main-contents__codeBox">
                                               <code>
                                                   <p>
-                                                    後ほど修正
-                                                    {/* function Welcome(props) {
-                                                      return <h1>Hello, {props.name}</h1>;
-                                                    }
-
-                                                    const element = <Welcome name="Sara" />;
-                                                    ReactDOM.render(
-                                                      element,
-                                                      document.getElementById('root')
-                                                    ); */}
+                                                    {this.keywordComponent('function')}
+                                                    {this.funcNameComponent('Welcome')}
+                                                    {this.punctuationComponent('(')}
+                                                    props
+                                                    {this.punctuationComponent(')')}
+                                                    {this.punctuationComponent('{')}
+                                                  </p>
+                                                  <div className="main-contents__codeBox__indent">
+                                                    <p>
+                                                      {this.keywordComponent('return')}
+                                                      {this.elementComponent('h1')}
+                                                      Hello,
+                                                      {this.punctuationComponent('{')}
+                                                      props.name
+                                                      {this.punctuationComponent('}')}
+                                                      {this.closeElementComponent('h1')}
+                                                      {this.punctuationComponent(';')}
+                                                    </p>
+                                                  </div>
+                                                  <p>
+                                                    {this.punctuationComponent('}')}
+                                                  </p>
+                                                  <br />
+                                                  <p>
+                                                    {this.keywordComponent('const')}
+                                                    element
+                                                    {this.operatorComponent('=')}
+                                                    {this.punctuationComponent('<')}
+                                                    <span className="main-contents__codeBox__element">Welcome</span>
+                                                    <span className="main-contents__codeBox__attribute"> name</span>
+                                                    {this.operatorComponent('=')}
+                                                    "Sara"
+                                                    {this.punctuationComponent(' />;')}
+                                                  </p>
+                                                  <p>
+                                                    ReactDOM
+                                                    {this.punctuationComponent('.')}
+                                                    {this.funcNameComponent('render')}
+                                                    {this.punctuationComponent('(')}
+                                                  </p>
+                                                  <div className="main-contents__codeBox__indent">
+                                                    <p>
+                                                      element
+                                                      {this.punctuationComponent(',')}
+                                                    </p>
+                                                    <p>
+                                                      document
+                                                      {this.punctuationComponent('.')}
+                                                      {this.funcNameComponent('getElementById')}
+                                                      {this.punctuationComponent('(')}
+                                                      {this.stringComponent("'root'")}
+                                                      {this.punctuationComponent(')')}
+                                                    </p>
+                                                  </div>
+                                                  <p className="main-contents__codeBox__interval">
+                                                    {this.punctuationComponent(');')}
                                                   </p>
                                               </code>
                                           </pre>
@@ -403,9 +709,9 @@ class Content extends React.Component {
                                             <strong>補足: コンポーネント名は常に大文字で始めてください。</strong><br />
                                             React は小文字で始まるコンポーネントを DOM タグとして扱います。
                                             例えば、
-                                            {/* <div />  */}？？？
+                                            {this.simpleComponent('div')}
                                             は HTML の div タグを表しますが、
-                                            {/* <Welcome /> */}？？？
+                                            {this.simpleComponent('Welcome')}
                                             はコンポーネントを表しており、
                                             <span className="main-contents__no">スコープ内に Welcome が存在する必要</span>があります。
                                           </p>
@@ -423,10 +729,24 @@ class Content extends React.Component {
                                           <pre className="main-contents__codeBox">
                                               <code>
                                                   <p>
-                                                    後ほど修正
-                                                    {/* function sum(a, b) {
-                                                      return a + b;
-                                                    } */}
+                                                    {this.keywordComponent('function')}
+                                                    {this.funcNameComponent('sum')}
+                                                    {this.punctuationComponent('(')}
+                                                    a, b
+                                                    {this.punctuationComponent(')')}
+                                                    {this.punctuationComponent('{')}
+                                                  </p>
+                                                  <div className="main-contents__codeBox__indent">
+                                                    <p>
+                                                      {this.keywordComponent('return')}
+                                                      a
+                                                      {this.operatorComponent('+')}
+                                                      b
+                                                      {this.punctuationComponent(';')}
+                                                    </p>
+                                                  </div>
+                                                  <p>
+                                                    {this.punctuationComponent('}')}
                                                   </p>
                                               </code>
                                           </pre>
@@ -440,10 +760,24 @@ class Content extends React.Component {
                                           <pre className="main-contents__codeBox">
                                               <code>
                                                   <p>
-                                                    後ほど修正
-                                                    {/* function withdraw(account, amount) {
-                                                      account.total -= amount;
-                                                    } */}
+                                                    {this.keywordComponent('function')}
+                                                    {this.funcNameComponent('withdraw')}
+                                                    {this.punctuationComponent('(')}
+                                                    account, amount
+                                                    {this.punctuationComponent(')')}
+                                                    {this.punctuationComponent('{')}
+                                                  </p>
+                                                  <div className="main-contents__codeBox__indent">
+                                                    <p>
+                                                      {this.keywordComponent('return')}
+                                                      account.total
+                                                      {this.operatorComponent('-= ')}
+                                                      amount
+                                                      {this.punctuationComponent(';')}
+                                                    </p>
+                                                  </div>
+                                                  <p>
+                                                    {this.punctuationComponent('}')}
                                                   </p>
                                               </code>
                                           </pre>
@@ -479,27 +813,111 @@ class Content extends React.Component {
                                           <pre className="main-contents__codeBox">
                                               <code>
                                                   <p>
-                                                    後ほど修正
-                                                    {/* class Clock extends React.Component {
-                                                      constructor(props) {
-                                                        super(props);
-                                                        this.state = {date: new Date()};
-                                                      }
-
-                                                      render() {
-                                                        return (
-                                                          <div>
-                                                            <h1>Hello, world!</h1>
-                                                            <h2>It is {this.state.date.toLocaleTimeString()}.</h2>
-                                                          </div>
-                                                        );
-                                                      }
-                                                    }
-
-                                                    ReactDOM.render(
-                                                      <Clock />,
-                                                      document.getElementById('root')
-                                                    ); */}
+                                                    {this.keywordComponent('class')}
+                                                    {this.funcNameComponent('Clock')}
+                                                    {this.keywordComponent('extends')}
+                                                    {this.keywordComponent('React.Component')}
+                                                    {this.punctuationComponent('{')}
+                                                  </p>
+                                                  <div className="main-contents__codeBox__indent">
+                                                    <p>
+                                                      {this.keywordComponent('constructor')}
+                                                      {this.punctuationComponent('(')}
+                                                      props
+                                                      {this.punctuationComponent(')')}
+                                                      {this.punctuationComponent('{')}
+                                                    </p>
+                                                    <div className="main-contents__codeBox__indent">
+                                                      <p>
+                                                        {this.keywordComponent('super')}
+                                                        {this.punctuationComponent('(')}
+                                                        props
+                                                        {this.punctuationComponent(')')}
+                                                        {this.punctuationComponent(';')}
+                                                      </p>
+                                                      <p>
+                                                        this.state
+                                                        {this.operatorComponent('=')}
+                                                        {this.punctuationComponent('{')}
+                                                        date:
+                                                        {this.keywordComponent(' new')}
+                                                        {this.funcNameComponent('Date')}
+                                                        {this.punctuationComponent('()};')}
+                                                      </p>
+                                                    </div>
+                                                    <p>
+                                                      {this.punctuationComponent('}')}
+                                                    </p>
+                                                    <br />
+                                                    <p>
+                                                      {this.keywordComponent('render')}
+                                                      {this.punctuationComponent('()')}
+                                                      {this.punctuationComponent('{')}
+                                                    </p>
+                                                    <div className="main-contents__codeBox__indent">
+                                                      <p>
+                                                        {this.keywordComponent('return')}
+                                                        {this.punctuationComponent('(')}
+                                                      </p>
+                                                      <div className="main-contents__codeBox__indent">
+                                                        <p>
+                                                          {this.elementComponent('div')}
+                                                        </p>
+                                                        <div className="main-contents__codeBox__indent">
+                                                          <p>
+                                                            {this.elementComponent('h1')}
+                                                            Hello, world!
+                                                            {this.closeElementComponent('h1')}
+                                                          </p>
+                                                          <p>
+                                                            {this.elementComponent('h2')}
+                                                            It is
+                                                            {this.punctuationComponent('{')}
+                                                            this.state.date.
+                                                            {this.funcNameComponent('toLocaleTimeString')}
+                                                            {this.punctuationComponent('()}')}
+                                                            .
+                                                            {this.closeElementComponent('h2')}
+                                                          </p>
+                                                        </div>
+                                                        <p>
+                                                          {this.closeElementComponent('div')}
+                                                        </p>
+                                                      </div>
+                                                      <p>
+                                                        {this.punctuationComponent(');')}
+                                                      </p>
+                                                    </div>
+                                                    <p>
+                                                      {this.punctuationComponent('}')}
+                                                    </p>
+                                                  </div>
+                                                  <p>
+                                                    {this.punctuationComponent('}')}
+                                                  </p>
+                                                  <br />
+                                                  <p>
+                                                    ReactDOM
+                                                    {this.punctuationComponent('.')}
+                                                    {this.funcNameComponent('render')}
+                                                    {this.punctuationComponent('(')}
+                                                  </p>
+                                                  <div className="main-contents__codeBox__indent">
+                                                    <p>
+                                                      {this.simpleComponent('Clock')}
+                                                      {this.punctuationComponent(',')}
+                                                    </p>
+                                                    <p>
+                                                      document
+                                                      {this.punctuationComponent('.')}
+                                                      {this.funcNameComponent('getElementById')}
+                                                      {this.punctuationComponent('(')}
+                                                      {this.stringComponent('root')}
+                                                      {this.punctuationComponent(')')}
+                                                    </p>
+                                                  </div>
+                                                  <p className="main-contents__codeBox__interval">
+                                                    {this.punctuationComponent(');')}
                                                   </p>
                                               </code>
                                           </pre>
@@ -547,44 +965,190 @@ class Content extends React.Component {
                                           <pre className="main-contents__codeBox">
                                               <code>
                                                   <p>
-                                                    後ほど修正
-                                                    {/* class Clock extends React.Component {
-                                                      constructor(props) {
-                                                        super(props);
-                                                        this.state = {date: new Date()};
-                                                      }
-
-                                                      componentDidMount() {
-                                                        this.timerID = setInterval(
-                                                          () => this.tick(),
+                                                    {this.keywordComponent('class')}
+                                                    {this.funcNameComponent('Clock')}
+                                                    {this.keywordComponent(' extends')}
+                                                    {this.keywordComponent('React.Component')}
+                                                    {this.punctuationComponent('{')}
+                                                  </p>
+                                                  <div className="main-contents__codeBox__indent">
+                                                    <p>
+                                                      {this.keywordComponent('constructor')}
+                                                      {this.punctuationComponent('(')}
+                                                      props
+                                                      {this.punctuationComponent(')')}
+                                                      {this.punctuationComponent('{')}
+                                                    </p>
+                                                    <div className="main-contents__codeBox__indent">
+                                                      <p>
+                                                        {this.keywordComponent('super')}
+                                                        {this.punctuationComponent('(')}
+                                                        props
+                                                        {this.punctuationComponent(')')}
+                                                        {this.punctuationComponent(';')}
+                                                      </p>
+                                                      <p>
+                                                        this.state
+                                                        {this.operatorComponent('=')}
+                                                        {this.punctuationComponent('{')}
+                                                        date:
+                                                        {this.keywordComponent(' new')}
+                                                        {this.funcNameComponent('Date')}
+                                                        {this.punctuationComponent('()};')}
+                                                      </p>
+                                                    </div>
+                                                    <p>
+                                                      {this.punctuationComponent('}')}
+                                                    </p>
+                                                    <br />
+                                                    <p>
+                                                      {this.keywordComponent('componentDidMount')}
+                                                      {this.punctuationComponent('()')}
+                                                      {this.punctuationComponent('{')}
+                                                    </p>
+                                                    <div className="main-contents__codeBox__indent">
+                                                      <p>
+                                                        this.timerID
+                                                        {this.operatorComponent(' = ')}
+                                                        {this.funcNameComponent('setInterval')}
+                                                        {this.punctuationComponent('(')}
+                                                      </p>
+                                                      <div className="main-contents__codeBox__indent">
+                                                        <p>
+                                                          {this.punctuationComponent('()')}
+                                                          {this.punctuationComponent('=> ')}
+                                                          this.
+                                                          {this.funcNameComponent('tick')}
+                                                          {this.punctuationComponent('(),')}
+                                                        </p>
+                                                        <p>
                                                           1000
-                                                        );
-                                                      }
+                                                        </p>
+                                                      </div>
+                                                      <p>
+                                                        {this.punctuationComponent(');')}
+                                                      </p>
+                                                    </div>
+                                                    <p>
+                                                      {this.punctuationComponent('}')}
+                                                    </p>
+                                                    <br />
 
-                                                      componentWillUnmount() {
-                                                        clearInterval(this.timerID);
-                                                      }
+                                                    <p>
+                                                      {this.keywordComponent('componentWillUnmount')}
+                                                      {this.punctuationComponent('()')}
+                                                      {this.punctuationComponent('{')}
+                                                    </p>
+                                                    <div className="main-contents__codeBox__indent">
+                                                      <p>
+                                                        {this.funcNameComponent('clearInterval')}
+                                                        {this.punctuationComponent('(')}
+                                                        this.timerID
+                                                        {this.punctuationComponent(');')}
+                                                      </p>
+                                                    </div>
+                                                    <p>
+                                                      {this.punctuationComponent('}')}
+                                                    </p>
+                                                    <br />
 
-                                                      tick() {
-                                                        this.setState({
-                                                          date: new Date()
-                                                        });
-                                                      }
+                                                    <p>
+                                                      {this.keywordComponent('tick')}
+                                                      {this.punctuationComponent('()')}
+                                                      {this.punctuationComponent('{')}
+                                                    </p>
+                                                    <div className="main-contents__codeBox__indent">
+                                                      <p>
+                                                        {this.funcNameComponent('this.setState')}
+                                                        {this.punctuationComponent('({')}
+                                                      </p>
+                                                      <div className="main-contents__codeBox__indent">
+                                                        <p>
+                                                          date:
+                                                          {this.keywordComponent(' new')}
+                                                          {this.funcNameComponent('Date')}
+                                                          {this.punctuationComponent('()')}
+                                                        </p>
+                                                      </div>
+                                                      <p>
+                                                        {this.punctuationComponent('});')}
+                                                      </p>
+                                                    </div>
+                                                    <p>
+                                                      {this.punctuationComponent('}')}
+                                                    </p>
+                                                    <br />
 
-                                                      render() {
-                                                        return (
-                                                          <div>
-                                                            <h1>Hello, world!</h1>
-                                                            <h2>It is {this.state.date.toLocaleTimeString()}.</h2>
-                                                          </div>
-                                                        );
-                                                      }
-                                                    }
+                                                    <p>
+                                                      {this.keywordComponent('render')}
+                                                      {this.punctuationComponent('()')}
+                                                      {this.punctuationComponent('{')}
+                                                    </p>
+                                                    <div className="main-contents__codeBox__indent">
+                                                      <p>
+                                                        {this.keywordComponent('return')}
+                                                        {this.punctuationComponent('(')}
+                                                      </p>
+                                                      <div className="main-contents__codeBox__indent">
+                                                        <p>
+                                                          {this.elementComponent('div')}
+                                                        </p>
+                                                        <div className="main-contents__codeBox__indent">
+                                                          <p>
+                                                            {this.elementComponent('h1')}
+                                                            Hello, world!
+                                                            {this.closeElementComponent('h1')}
+                                                          </p>
+                                                          <p>
+                                                            {this.elementComponent('h2')}
+                                                            It is
+                                                            {this.punctuationComponent('{')}
+                                                            this.state.date.
+                                                            {this.funcNameComponent('toLocaleTimeString')}
+                                                            {this.punctuationComponent('()}')}
+                                                            .
+                                                            {this.closeElementComponent('h2')}
+                                                          </p>
+                                                        </div>
+                                                        <p>
+                                                          {this.closeElementComponent('div')}
+                                                        </p>
+                                                      </div>
+                                                      <p>
+                                                        {this.punctuationComponent(');')}
+                                                      </p>
+                                                    </div>
+                                                    <p>
+                                                      {this.punctuationComponent('}')}
+                                                    </p>
+                                                  </div>
+                                                  <p>
+                                                    {this.punctuationComponent('}')}
+                                                  </p>
+                                                  <br />
 
-                                                    ReactDOM.render(
-                                                      <Clock />,
-                                                      document.getElementById('root')
-                                                    ); */}
+                                                  <p>
+                                                    ReactDOM
+                                                    {this.punctuationComponent('.')}
+                                                    {this.funcNameComponent('render')}
+                                                    {this.punctuationComponent('(')}
+                                                  </p>
+                                                  <div className="main-contents__codeBox__indent">
+                                                    <p>
+                                                      {this.simpleComponent('Clock')}
+                                                      {this.punctuationComponent(',')}
+                                                    </p>
+                                                    <p>
+                                                      document
+                                                      {this.punctuationComponent('.')}
+                                                      {this.funcNameComponent('getElementById')}
+                                                      {this.punctuationComponent('(')}
+                                                      {this.stringComponent('root')}
+                                                      {this.punctuationComponent(')')}
+                                                    </p>
+                                                  </div>
+                                                  <p className="main-contents__codeBox__interval">
+                                                    {this.punctuationComponent(');')}
                                                   </p>
                                               </code>
                                           </pre>
@@ -635,9 +1199,13 @@ class Content extends React.Component {
                                           <pre className="main-contents__codeBox">
                                               <code>
                                                   <p>
-                                                    後ほど修正
-                                                    {/* // Wrong
-                                                    this.state.comment = 'Hello'; */}
+                                                    {this.stringComponent('// Wrong')}
+                                                  </p>
+                                                  <p>
+                                                    this.state.comment
+                                                    {this.operatorComponent(' = ')}
+                                                    {this.stringComponent("'Hello'")}
+                                                    {this.punctuationComponent(';')}
                                                   </p>
                                               </code>
                                           </pre>
@@ -654,11 +1222,21 @@ class Content extends React.Component {
                                           <pre className="main-contents__codeBox">
                                               <code>
                                                   <p>
-                                                    後ほど修正
-                                                    {/* // Wrong
-                                                    this.setState({
-                                                      counter: this.state.counter + this.props.increment,
-                                                    }); */}
+                                                    {this.stringComponent('// Wrong')}
+                                                  </p>
+                                                  <p>
+                                                    {this.funcNameComponent('this.setState')}
+                                                    {this.punctuationComponent('({')}
+                                                  </p>
+                                                  <div className="main-contents__codeBox__indent">
+                                                    <p>
+                                                      counter: this.state.counter
+                                                      {this.operatorComponent(' + ')}
+                                                      this.props.increment,
+                                                    </p>
+                                                  </div>
+                                                  <p>
+                                                    {this.punctuationComponent('});')}
                                                   </p>
                                               </code>
                                           </pre>
@@ -669,11 +1247,23 @@ class Content extends React.Component {
                                           <pre className="main-contents__codeBox">
                                               <code>
                                                   <p>
-                                                    後ほど修正
-                                                    {/* // Correct
-                                                    this.setState((state, props) => ({
-                                                      counter: state.counter + props.increment
-                                                    })); */}
+                                                    {this.stringComponent('// Correct')}
+                                                  </p>
+                                                  <p>
+                                                    {this.funcNameComponent('this.setState')}
+                                                    {this.punctuationComponent('((')}
+                                                    state, props
+                                                    {this.punctuationComponent(') => ({')}
+                                                  </p>
+                                                  <div className="main-contents__codeBox__indent">
+                                                    <p>
+                                                      counter: state.counter
+                                                      {this.operatorComponent(' + ')}
+                                                      props.increment
+                                                    </p>
+                                                  </div>
+                                                  <p>
+                                                    {this.punctuationComponent('}));')}
                                                   </p>
                                               </code>
                                           </pre>
@@ -702,10 +1292,15 @@ class Content extends React.Component {
                                           <pre className="main-contents__codeBox">
                                               <code>
                                                   <p>
-                                                    後ほど修正
-                                                    {/* <button onClick={activateLasers}>
+                                                    {this.attributeElementComponent('button','onClick','{activateLasers}')}
+                                                  </p>
+                                                  <div className="main-contents__codeBox__indent">
+                                                    <p>
                                                       Activate Lasers
-                                                    </button> */}
+                                                    </p>
+                                                  </div>
+                                                  <p>
+                                                    {this.closeElementComponent('button')}
                                                   </p>
                                               </code>
                                           </pre>
@@ -718,10 +1313,23 @@ class Content extends React.Component {
                                           <pre className="main-contents__codeBox">
                                               <code>
                                                   <p>
-                                                    後ほど修正
-                                                    {/* <a href="#" onclick="console.log('The link was clicked.'); return false">
+                                                    {this.punctuationComponent('<')}
+                                                    <span className="main-contents__codeBox__element">a</span>
+                                                    <span className="main-contents__codeBox__attribute"> href</span>
+                                                    {this.operatorComponent('=')}
+                                                    "#"
+                                                    <span className="main-contents__codeBox__attribute"> onclick</span>
+                                                    {this.operatorComponent('=')}
+                                                    "console.log('The link was clicked.'); return false"
+                                                    {this.punctuationComponent('>')}
+                                                  </p>
+                                                  <div className="main-contents__codeBox__indent">
+                                                    <p>
                                                       Click me
-                                                    </a> */}
+                                                    </p>
+                                                  </div>
+                                                  <p>
+                                                    {this.closeElementComponent('a')}
                                                   </p>
                                               </code>
                                           </pre>
@@ -731,19 +1339,69 @@ class Content extends React.Component {
                                           <pre className="main-contents__codeBox">
                                               <code>
                                                   <p>
-                                                    後ほど修正
-                                                    {/* function ActionLink() {
-                                                      function handleClick(e) {
-                                                        e.preventDefault();
-                                                        console.log('The link was clicked.');
-                                                      }
+                                                    {this.keywordComponent('function')}
+                                                    {this.funcNameComponent('ActionLink')}
+                                                    {this.punctuationComponent('() {')}
+                                                  </p>
+                                                  <div className="main-contents__codeBox__indent">
+                                                    <p>
+                                                      {this.keywordComponent('function')}
+                                                      {this.funcNameComponent('handleClick')}
+                                                      {this.punctuationComponent('(')}
+                                                      e
+                                                      {this.punctuationComponent(') {')}
+                                                    </p>
+                                                    <div className="main-contents__codeBox__indent">
+                                                      <p>
+                                                        e.
+                                                        {this.funcNameComponent(('preventDefault'))}
+                                                        {this.punctuationComponent('();')}
+                                                      </p>
+                                                      <p>
+                                                        {this.funcNameComponent(('console.log'))}
+                                                        {this.punctuationComponent('(')}
+                                                        'The link was clicked.'
+                                                        {this.punctuationComponent(');')}
+                                                      </p>
+                                                    </div>
+                                                    <p>
+                                                      {this.punctuationComponent('}')}
+                                                    </p>
+                                                    <br />
 
-                                                      return (
-                                                        <a href="#" onClick={handleClick}>
+                                                    <p>
+                                                      {this.keywordComponent('return')}
+                                                      {this.punctuationComponent('(')}
+                                                    </p>
+                                                    <div className="main-contents__codeBox__indent">
+                                                      <p>
+                                                        {this.punctuationComponent('<')}
+                                                        <span className="main-contents__codeBox__element">a</span>
+                                                        <span className="main-contents__codeBox__attribute"> href</span>
+                                                        {this.operatorComponent('=')}
+                                                        "#"
+                                                        <span className="main-contents__codeBox__attribute"> onclick</span>
+                                                        {this.operatorComponent('=')}
+                                                        {this.punctuationComponent('{')}
+                                                        handleClick
+                                                        {this.punctuationComponent('}')}
+                                                        {this.punctuationComponent('>')}
+                                                      </p>
+                                                      <div className="main-contents__codeBox__indent">
+                                                        <p>
                                                           Click me
-                                                        </a>
-                                                      );
-                                                    } */}
+                                                        </p>
+                                                      </div>
+                                                      <p>
+                                                        {this.closeElementComponent('a')}
+                                                      </p>
+                                                    </div>
+                                                    <p>
+                                                      {this.punctuationComponent(');')}
+                                                    </p>
+                                                  </div>
+                                                  <p>
+                                                    {this.punctuationComponent('}')}
                                                   </p>
                                               </code>
                                           </pre>
@@ -765,35 +1423,140 @@ class Content extends React.Component {
                                           <pre className="main-contents__codeBox">
                                               <code>
                                                   <p>
-                                                    後ほど修正
-                                                    {/* class Toggle extends React.Component {
-                                                      constructor(props) {
-                                                        super(props);
-                                                        this.state = {isToggleOn: true};
-
-                                                        // This binding is necessary to make `this` work in the callback
-                                                        this.handleClick = this.handleClick.bind(this);
-                                                      }
-
-                                                      handleClick() {
-                                                        this.setState(state => ({
+                                                    {this.keywordComponent('class')}
+                                                    {this.funcNameComponent('Toggle')}
+                                                    {this.keywordComponent(' extends')}
+                                                    {this.keywordComponent('React.Component')}
+                                                    {this.punctuationComponent('{')}
+                                                  </p>
+                                                  <div className="main-contents__codeBox__indent">
+                                                    <p>
+                                                      {this.keywordComponent('constructor')}
+                                                      {this.punctuationComponent('(')}
+                                                      props
+                                                      {this.punctuationComponent(')')}
+                                                      {this.punctuationComponent('{')}
+                                                    </p>
+                                                    <div className="main-contents__codeBox__indent">
+                                                      <p>
+                                                        {this.keywordComponent('super')}
+                                                        {this.punctuationComponent('(')}
+                                                        props
+                                                        {this.punctuationComponent(')')}
+                                                        {this.punctuationComponent(';')}
+                                                      </p>
+                                                      <p>
+                                                        this.state
+                                                        {this.operatorComponent('=')}
+                                                        {this.punctuationComponent('{')}
+                                                        isToggleOn:
+                                                        {this.keywordComponent(' true')}
+                                                        {this.punctuationComponent('};')}
+                                                      </p>
+                                                      <p>
+                                                        this.handleClick
+                                                        {this.operatorComponent(' = ')}
+                                                        {this.funcNameComponent('this.handleClick.bind')}
+                                                        {this.punctuationComponent('(')}
+                                                        this
+                                                        {this.punctuationComponent(');')}
+                                                      </p>
+                                                    </div>
+                                                    <p>
+                                                      {this.punctuationComponent('}')}
+                                                    </p>
+                                                    <br />
+                                                    
+                                                    <p>
+                                                      {this.keywordComponent('handleClick')}
+                                                      {this.punctuationComponent('()')}
+                                                      {this.punctuationComponent('{')}
+                                                    </p>
+                                                    <div className="main-contents__codeBox__indent">
+                                                      <p>
+                                                        {this.funcNameComponent('this.setState')}
+                                                        {this.punctuationComponent('(')}
+                                                        state
+                                                        {this.punctuationComponent(' => ({')}
+                                                      </p>
+                                                      <div className="main-contents__codeBox__indent">
+                                                        <p>
                                                           isToggleOn: !state.isToggleOn
-                                                        }));
-                                                      }
+                                                        </p>
+                                                      </div>
+                                                      <p>
+                                                        {this.punctuationComponent('}));')}
+                                                      </p>
+                                                    </div>
+                                                    <p>
+                                                      {this.punctuationComponent('}')}
+                                                    </p>
+                                                    <br />
 
-                                                      render() {
-                                                        return (
-                                                          <button onClick={this.handleClick}>
-                                                            {this.state.isToggleOn ? 'ON' : 'OFF'}
-                                                          </button>
-                                                        );
-                                                      }
-                                                    }
+                                                    <p>
+                                                      {this.keywordComponent('render')}
+                                                      {this.punctuationComponent('()')}
+                                                      {this.punctuationComponent('{')}
+                                                    </p>
+                                                    <div className="main-contents__codeBox__indent">
+                                                      <p>
+                                                        {this.keywordComponent('return')}
+                                                        {this.punctuationComponent('(')}
+                                                      </p>
+                                                      <div className="main-contents__codeBox__indent">
+                                                        <p>
+                                                          {this.attributeElementComponent('button','onClick','{this.handleClick}')}
+                                                        </p>
+                                                        <div className="main-contents__codeBox__indent">
+                                                          <p>
+                                                            {this.punctuationComponent('{')}
+                                                            this.state.isToggleOn
+                                                            {this.punctuationComponent(' ?')}
+                                                            {this.stringComponent("'ON'")}
+                                                            {this.punctuationComponent(':')}
+                                                            {this.stringComponent("'OFF'")}
+                                                            {this.punctuationComponent('}')}
+                                                          </p>
+                                                        </div>
+                                                        <p>
+                                                          {this.closeElementComponent('button')}
+                                                        </p>
+                                                      </div>
+                                                      <p>
+                                                        {this.punctuationComponent(');')}
+                                                      </p>
+                                                    </div>
+                                                    <p>
+                                                      {this.punctuationComponent('}')}
+                                                    </p>
+                                                  </div>
+                                                  <p>
+                                                    {this.punctuationComponent('}')}
+                                                  </p>
+                                                  <br />
 
-                                                    ReactDOM.render(
-                                                      <Toggle />,
-                                                      document.getElementById('root')
-                                                    ); */}
+                                                  <p>
+                                                    ReactDOM
+                                                    {this.punctuationComponent('.')}
+                                                    {this.funcNameComponent('render')}
+                                                    {this.punctuationComponent('(')}
+                                                  </p>
+                                                  <div className="main-contents__codeBox__indent">
+                                                    <p>
+                                                      {this.simpleComponent('Toggle')}
+                                                      {this.punctuationComponent(',')}
+                                                    </p>
+                                                    <p>
+                                                      document
+                                                      {this.punctuationComponent('.')}
+                                                      {this.funcNameComponent('getElementById')}
+                                                      {this.punctuationComponent('(')}
+                                                      {this.stringComponent('root')}
+                                                      {this.punctuationComponent(')')}
+                                                    </p>
+                                                  </div>
+                                                  <p className="main-contents__codeBox__interval">
+                                                    {this.punctuationComponent(');')}
                                                   </p>
                                               </code>
                                           </pre>
@@ -811,20 +1574,64 @@ class Content extends React.Component {
                                           <pre className="main-contents__codeBox">
                                               <code>
                                                   <p>
-                                                    後ほど修正
-                                                    {/* class LoggingButton extends React.Component {
-                                                      handleClick = () => {
-                                                        console.log('this is:', this);
-                                                      }
+                                                    {this.keywordComponent('class')}
+                                                    {this.funcNameComponent('LoggingButton')}
+                                                    {this.keywordComponent(' extends')}
+                                                    {this.keywordComponent('React.Component')}
+                                                    {this.punctuationComponent('{')}
+                                                  </p>
+                                                  <div className="main-contents__codeBox__indent">
+                                                    <p>
+                                                      handleClick
+                                                      {this.operatorComponent(' = ')}
+                                                      {this.punctuationComponent('() => {')}
+                                                    </p>
+                                                    <div className="main-contents__codeBox__indent">
+                                                      <p>
+                                                        {this.funcNameComponent('console.log')}
+                                                        {this.punctuationComponent('(')}
+                                                        'this is:', this
+                                                        {this.punctuationComponent(');')}
+                                                      </p>
+                                                    </div>
+                                                    <p>
+                                                      {this.punctuationComponent('}')}
+                                                    </p>
+                                                    <br />
 
-                                                      render() {
-                                                        return (
-                                                          <button onClick={this.handleClick}>
+                                                    <p>
+                                                      {this.keywordComponent('render')}
+                                                      {this.punctuationComponent('()')}
+                                                      {this.punctuationComponent('{')}
+                                                    </p>
+                                                    <div className="main-contents__codeBox__indent">
+                                                      <p>
+                                                        {this.keywordComponent('return')}
+                                                        {this.punctuationComponent('(')}
+                                                      </p>
+                                                      <div className="main-contents__codeBox__indent">
+                                                        <p>
+                                                          {this.attributeElementComponent('button','onClick','{this.handleClick}')}
+                                                        </p>
+                                                        <div className="main-contents__codeBox__indent">
+                                                          <p>
                                                             Click me
-                                                          </button>
-                                                        );
-                                                      }
-                                                    } */}
+                                                          </p>
+                                                        </div>
+                                                        <p>
+                                                          {this.closeElementComponent('button')}
+                                                        </p>
+                                                      </div>
+                                                      <p>
+                                                        {this.punctuationComponent(');')}
+                                                      </p>
+                                                    </div>
+                                                    <p>
+                                                      {this.punctuationComponent('}')}
+                                                    </p>
+                                                  </div>
+                                                  <p>
+                                                    {this.punctuationComponent('}')}
                                                   </p>
                                               </code>
                                           </pre>
@@ -854,15 +1661,61 @@ class Content extends React.Component {
                                           <pre className="main-contents__codeBox">
                                               <code>
                                                   <p>
-                                                    後ほど修正
-                                                    {/* const numbers = [1, 2, 3, 4, 5];
-                                                    const listItems = numbers.map((number) =>
-                                                      <li>{number}</li>
-                                                    );
-                                                    ReactDOM.render(
-                                                      <ul>{listItems}</ul>,
-                                                      document.getElementById('root')
-                                                    ); */}
+                                                    {this.keywordComponent('const')}
+                                                    numbers
+                                                    {this.punctuationComponent(' = [')}
+                                                    1, 2, 3, 4, 5
+                                                    {this.punctuationComponent('];')}
+                                                  </p>
+                                                  <p>
+                                                    {this.keywordComponent('const')}
+                                                    listItems
+                                                    {this.operatorComponent(' = ')}
+                                                    numbers.
+                                                    {this.funcNameComponent('map')}
+                                                    {this.punctuationComponent('((')}
+                                                    number
+                                                    {this.punctuationComponent(') =>')}
+                                                  </p>
+                                                  <div className="main-contents__codeBox__indent">
+                                                    <p>
+                                                      {this.elementComponent('li')}
+                                                      {this.punctuationComponent('{')}
+                                                      number
+                                                      {this.punctuationComponent('}')}
+                                                      {this.closeElementComponent('li')}
+                                                    </p>
+                                                  </div>
+                                                  <p>
+                                                    {this.punctuationComponent(');')}
+                                                  </p>
+
+                                                  <p>
+                                                    ReactDOM
+                                                    {this.punctuationComponent('.')}
+                                                    {this.funcNameComponent('render')}
+                                                    {this.punctuationComponent('(')}
+                                                  </p>
+                                                  <div className="main-contents__codeBox__indent">
+                                                    <p>
+                                                      {this.elementComponent('ul')}
+                                                      {this.punctuationComponent('{')}
+                                                      listItems
+                                                      {this.punctuationComponent('}')}
+                                                      {this.closeElementComponent('ul')}
+                                                      {this.punctuationComponent(',')}
+                                                    </p>
+                                                    <p>
+                                                      document
+                                                      {this.punctuationComponent('.')}
+                                                      {this.funcNameComponent('getElementById')}
+                                                      {this.punctuationComponent('(')}
+                                                      {this.stringComponent('root')}
+                                                      {this.punctuationComponent(')')}
+                                                    </p>
+                                                  </div>
+                                                  <p className="main-contents__codeBox__interval">
+                                                    {this.punctuationComponent(');')}
                                                   </p>
                                               </code>
                                           </pre>
@@ -872,22 +1725,101 @@ class Content extends React.Component {
                                           <pre className="main-contents__codeBox">
                                               <code>
                                                   <p>
-                                                    後ほど修正
-                                                    {/* function NumberList(props) {
-                                                      const numbers = props.numbers;
-                                                      const listItems = numbers.map((number) =>
-                                                        <li>{number}</li>
-                                                      );
-                                                      return (
-                                                        <ul>{listItems}</ul>
-                                                      );
-                                                    }
+                                                    {this.keywordComponent('function')}
+                                                    {this.funcNameComponent('NumberList')}
+                                                    {this.punctuationComponent('(')}
+                                                    props
+                                                    {this.punctuationComponent(')')}
+                                                    {this.punctuationComponent('{')}
+                                                  </p>
+                                                  <div className="main-contents__codeBox__indent">
+                                                    <p>
+                                                      {this.keywordComponent('const')}
+                                                      numbers
+                                                      {this.operatorComponent(' = ')}
+                                                      props.numbers
+                                                      {this.punctuationComponent(';')}
+                                                    </p>
+                                                    <p>
+                                                      {this.keywordComponent('const')}
+                                                      listItems
+                                                      {this.operatorComponent(' = ')}
+                                                      numbers.
+                                                      {this.funcNameComponent('map')}
+                                                      {this.punctuationComponent('((')}
+                                                      number
+                                                      {this.punctuationComponent(') =>')}
+                                                    </p>
+                                                    <div className="main-contents__codeBox__indent">
+                                                      <p>
+                                                        {this.elementComponent('li')}
+                                                        {this.punctuationComponent('{')}
+                                                        number
+                                                        {this.punctuationComponent('}')}
+                                                        {this.closeElementComponent('li')}
+                                                      </p>
+                                                    </div>
+                                                    <p>
+                                                      {this.punctuationComponent(');')}
+                                                    </p>
 
-                                                    const numbers = [1, 2, 3, 4, 5];
-                                                    ReactDOM.render(
-                                                      <NumberList numbers={numbers} />,
-                                                      document.getElementById('root')
-                                                    ); */}
+                                                    <p>
+                                                      {this.keywordComponent('return')}
+                                                      {this.punctuationComponent('(')}
+                                                    </p>
+                                                    <div className="main-contents__codeBox__indent">
+                                                      <p>
+                                                        {this.elementComponent('ul')}
+                                                        {this.punctuationComponent('{')}
+                                                        listItems
+                                                        {this.punctuationComponent('}')}
+                                                        {this.closeElementComponent('ul')}
+                                                      </p>
+                                                    </div>
+                                                    <p>
+                                                      {this.punctuationComponent(');')}
+                                                    </p>
+                                                  </div>
+                                                  <p>
+                                                    {this.punctuationComponent('}')}
+                                                  </p>
+                                                  <br />
+
+                                                  <p>
+                                                    {this.keywordComponent('const')}
+                                                    numbers
+                                                    {this.punctuationComponent(' = [')}
+                                                    1, 2, 3, 4, 5
+                                                    {this.punctuationComponent('];')}
+                                                  </p>
+                                                  
+                                                  <p>
+                                                    ReactDOM
+                                                    {this.punctuationComponent('.')}
+                                                    {this.funcNameComponent('render')}
+                                                    {this.punctuationComponent('(')}
+                                                  </p>
+                                                  <div className="main-contents__codeBox__indent">
+                                                    <p>
+                                                      {this.punctuationComponent('<')}
+                                                      <span className="main-contents__codeBox__element">NumberList</span>
+                                                      <span className="main-contents__codeBox__attribute"> numbers</span>
+                                                      {this.operatorComponent('=')}
+                                                      {this.punctuationComponent('{')}
+                                                      numbers
+                                                      {this.punctuationComponent('} />,')}
+                                                    </p>
+                                                    <p>
+                                                      document
+                                                      {this.punctuationComponent('.')}
+                                                      {this.funcNameComponent('getElementById')}
+                                                      {this.punctuationComponent('(')}
+                                                      {this.stringComponent("'root'")}
+                                                      {this.punctuationComponent(')')}
+                                                    </p>
+                                                  </div>
+                                                  <p className="main-contents__codeBox__interval">
+                                                    {this.punctuationComponent(');')}
                                                   </p>
                                               </code>
                                           </pre>
@@ -900,10 +1832,17 @@ class Content extends React.Component {
                                           <pre className="main-contents__codeBox">
                                               <code>
                                                   <p>
-                                                    後ほど修正
-                                                    {/* <li key={number.toString()}>
-                                                      {number}
-                                                    </li> */}
+                                                    {this.attributeElementComponent('li','key','{number.toString()}')}
+                                                  </p>
+                                                  <div className="main-contents__codeBox__indent">
+                                                    <p>
+                                                      {this.punctuationComponent('{')}
+                                                      number
+                                                      {this.punctuationComponent('}')}
+                                                    </p>
+                                                  </div>
+                                                  <p>
+                                                    {this.elementComponent('li')}
                                                   </p>
                                               </code>
                                           </pre>
@@ -920,13 +1859,37 @@ class Content extends React.Component {
                                           <pre className="main-contents__codeBox">
                                               <code>
                                                   <p>
-                                                    後ほど修正
-                                                    {/* const numbers = [1, 2, 3, 4, 5];
-                                                    const listItems = numbers.map((number) =>
-                                                      <li key={number.toString()}>
-                                                        {number}
-                                                      </li>
-                                                    ); */}
+                                                    {this.keywordComponent('const')}
+                                                    numbers
+                                                    {this.punctuationComponent(' = [')}
+                                                    1, 2, 3, 4, 5
+                                                    {this.punctuationComponent('];')}
+                                                  </p>
+                                                  <p>
+                                                    {this.keywordComponent('const')}
+                                                    listItems
+                                                    {this.punctuationComponent(' = ')}
+                                                    numbers.
+                                                    {this.funcNameComponent('map')}
+                                                    {this.punctuationComponent('((')}
+                                                    number
+                                                    {this.punctuationComponent(') =>')}
+                                                  </p>
+                                                  <div className="main-contents__codeBox__indent">
+                                                    <p>
+                                                      {this.attributeElementComponent('li','key','{number.toString()}')}
+                                                    </p>
+                                                    <p>
+                                                      {this.punctuationComponent('{')}
+                                                      number
+                                                      {this.punctuationComponent('}')}
+                                                    </p>
+                                                    <p>
+                                                      {this.closeElementComponent('li')}
+                                                    </p>
+                                                  </div>
+                                                  <p>
+                                                    {this.punctuationComponent(');')}
                                                   </p>
                                               </code>
                                           </pre>
@@ -937,12 +1900,32 @@ class Content extends React.Component {
                                           <pre className="main-contents__codeBox">
                                               <code>
                                                   <p>
-                                                    後ほど修正
-                                                    {/* const todoItems = todos.map((todo) =>
-                                                      <li key={todo.id}>
-                                                        {todo.text}
-                                                      </li>
-                                                    ); */}
+                                                    {this.keywordComponent('const')}
+                                                    todoItems
+                                                    {this.punctuationComponent(' = ')}
+                                                    todos.
+                                                    {this.funcNameComponent('map')}
+                                                    {this.punctuationComponent('((')}
+                                                    todo
+                                                    {this.punctuationComponent(') =>')}
+                                                  </p>
+                                                  <div className="main-contents__codeBox__indent">
+                                                    <p>
+                                                      {this.attributeElementComponent('li','key','{todo.id}')}
+                                                    </p>
+                                                    <div className="main-contents__codeBox__indent">
+                                                      <p>
+                                                        {this.punctuationComponent('{')}
+                                                        todo.text
+                                                        {this.punctuationComponent('}')}
+                                                      </p>
+                                                    </div>
+                                                    <p>
+                                                      {this.closeElementComponent('li')}
+                                                    </p>
+                                                  </div>
+                                                  <p>
+                                                    {this.punctuationComponent(');')}
                                                   </p>
                                               </code>
                                           </pre>
@@ -962,35 +1945,158 @@ class Content extends React.Component {
                                           <pre className="main-contents__codeBox">
                                               <code>
                                                   <p>
-                                                    後ほど修正
-                                                    {/* function ListItem(props) {
-                                                      const value = props.value;
-                                                      return (
-                                                        // Wrong! There is no need to specify the key here:
-                                                        <li key={value.toString()}>
-                                                          {value}
-                                                        </li>
-                                                      );
-                                                    }
+                                                    {this.keywordComponent('function')}
+                                                    {this.funcNameComponent('ListItem')}
+                                                    {this.punctuationComponent('(')}
+                                                    props
+                                                    {this.punctuationComponent(')')}
+                                                    {this.punctuationComponent('{')}
+                                                  </p>
+                                                  <div className="main-contents__codeBox__indent">
+                                                    <p>
+                                                      {this.keywordComponent('const')}
+                                                      value
+                                                      {this.operatorComponent(' = ')}
+                                                      props.value
+                                                      {this.punctuationComponent(';')}
+                                                    </p>
+                                                    <div className="main-contents__codeBox__indent">
+                                                      <p>
+                                                        {this.keywordComponent('return')}
+                                                        {this.punctuationComponent('(')}
+                                                      </p>
+                                                      <div className="main-contents__codeBox__indent">
+                                                        <p>
+                                                          {this.stringComponent('// Wrong! There is no need to specify the key here:')}
+                                                        </p>
+                                                        <p>
+                                                          {this.attributeElementComponent('li','key','{value.toString()}')}
+                                                        </p>
+                                                        <div className="main-contents__codeBox__indent">
+                                                          <p>
+                                                            {this.punctuationComponent('{')}
+                                                            value
+                                                            {this.punctuationComponent('}')}
+                                                          </p>
+                                                        </div>
+                                                        <p>
+                                                          {this.closeElementComponent('li')}
+                                                        </p>
+                                                      </div>
+                                                      <p>
+                                                        {this.punctuationComponent(');')}
+                                                      </p>
+                                                    </div>
+                                                    <p>
+                                                      {this.punctuationComponent('}')}
+                                                    </p>
+                                                  </div>
+                                                  
+                                                  <p>
+                                                    {this.keywordComponent('function')}
+                                                    {this.funcNameComponent('NumberList')}
+                                                    {this.punctuationComponent('(')}
+                                                    props
+                                                    {this.punctuationComponent(')')}
+                                                    {this.punctuationComponent('{')}
+                                                  </p>
+                                                  <div className="main-contents__codeBox__indent">
+                                                    <p>
+                                                      {this.keywordComponent('const')}
+                                                      numbers
+                                                      {this.operatorComponent(' = ')}
+                                                      props.numbers
+                                                      {this.punctuationComponent(';')}
+                                                    </p>
+                                                    <p>
+                                                      {this.keywordComponent('const')}
+                                                      listItems
+                                                      {this.operatorComponent(' = ')}
+                                                      numbers.
+                                                      {this.funcNameComponent('map')}
+                                                      {this.punctuationComponent('((')}
+                                                      number
+                                                      {this.punctuationComponent(') =>')}
+                                                    </p>
+                                                    <div className="main-contents__codeBox__indent">
+                                                      <p>
+                                                        {this.stringComponent('// Wrong! The key should have been specified here:')}
+                                                      </p>
+                                                      <p>
+                                                        {this.punctuationComponent('<')}
+                                                        {this.stringComponent('ListItem ')}
+                                                        value
+                                                        {this.operatorComponent('=')}
+                                                        {this.punctuationComponent('{')}
+                                                        number
+                                                        {this.punctuationComponent('} />')}
+                                                      </p>
+                                                    </div>
+                                                    <p>
+                                                      {this.punctuationComponent(');')}
+                                                    </p>
 
-                                                    function NumberList(props) {
-                                                      const numbers = props.numbers;
-                                                      const listItems = numbers.map((number) =>
-                                                        // Wrong! The key should have been specified here:
-                                                        <ListItem value={number} />
-                                                      );
-                                                      return (
-                                                        <ul>
-                                                          {listItems}
-                                                        </ul>
-                                                      );
-                                                    }
+                                                    <p>
+                                                      {this.keywordComponent('return')}
+                                                      {this.punctuationComponent('(')}
+                                                    </p>
+                                                    <div className="main-contents__codeBox__indent">
+                                                      <p>
+                                                        {this.elementComponent('ul')}
+                                                      </p>
+                                                      <p>
+                                                        {this.punctuationComponent('{')}
+                                                        listItems
+                                                        {this.punctuationComponent('}')}
+                                                      </p>
+                                                      <p>
+                                                        {this.closeElementComponent('ul')}
+                                                      </p>
+                                                    </div>
+                                                    <p>
+                                                      {this.punctuationComponent(');')}
+                                                    </p>
+                                                  </div>
+                                                  <p>
+                                                    {this.punctuationComponent('}')}
+                                                  </p>
+                                                  <br />
 
-                                                    const numbers = [1, 2, 3, 4, 5];
-                                                    ReactDOM.render(
-                                                      <NumberList numbers={numbers} />,
-                                                      document.getElementById('root')
-                                                    ); */}
+                                                  <p>
+                                                    {this.keywordComponent('const')}
+                                                    numbers
+                                                    {this.punctuationComponent(' = [')}
+                                                    1, 2, 3, 4, 5
+                                                    {this.punctuationComponent('];')}
+                                                  </p>
+                                                  
+                                                  <p>
+                                                    ReactDOM
+                                                    {this.punctuationComponent('.')}
+                                                    {this.funcNameComponent('render')}
+                                                    {this.punctuationComponent('(')}
+                                                  </p>
+                                                  <div className="main-contents__codeBox__indent">
+                                                    <p>
+                                                      {this.punctuationComponent('<')}
+                                                      <span className="main-contents__codeBox__element">NumberList</span>
+                                                      <span className="main-contents__codeBox__attribute"> numbers</span>
+                                                      {this.operatorComponent('=')}
+                                                      {this.punctuationComponent('{')}
+                                                      numbers
+                                                      {this.punctuationComponent('} />,')}
+                                                    </p>
+                                                    <p>
+                                                      document
+                                                      {this.punctuationComponent('.')}
+                                                      {this.funcNameComponent('getElementById')}
+                                                      {this.punctuationComponent('(')}
+                                                      {this.stringComponent("'root'")}
+                                                      {this.punctuationComponent(')')}
+                                                    </p>
+                                                  </div>
+                                                  <p className="main-contents__codeBox__interval">
+                                                    {this.punctuationComponent(');')}
                                                   </p>
                                               </code>
                                           </pre>
@@ -1000,34 +2106,136 @@ class Content extends React.Component {
                                           <pre className="main-contents__codeBox">
                                               <code>
                                                   <p>
-                                                    後ほど修正
-                                                    {/* function ListItem(props) {
-                                                      return <li>{props.value}</li>;
-                                                    }
+                                                    {this.keywordComponent('function')}
+                                                    {this.funcNameComponent('ListItem')}
+                                                    {this.punctuationComponent('(')}
+                                                    props
+                                                    {this.punctuationComponent(')')}
+                                                    {this.punctuationComponent('{')}
+                                                  </p>
+                                                  <div className="main-contents__codeBox__indent">
+                                                      <p>
+                                                        {this.keywordComponent('return')}
+                                                        {this.elementComponent('li')}
+                                                        {this.punctuationComponent('{')}
+                                                        props.value
+                                                        {this.punctuationComponent('}')}
+                                                        {this.closeElementComponent('li')}
+                                                        {this.punctuationComponent(';')}
+                                                      </p>
+                                                  </div>
+                                                  <p>
+                                                    {this.punctuationComponent('}')}
+                                                  </p>
+                                                  
+                                                  <p>
+                                                    {this.keywordComponent('function')}
+                                                    {this.funcNameComponent('NumberList')}
+                                                    {this.punctuationComponent('(')}
+                                                    props
+                                                    {this.punctuationComponent(')')}
+                                                    {this.punctuationComponent('{')}
+                                                  </p>
+                                                  <div className="main-contents__codeBox__indent">
+                                                    <p>
+                                                      {this.keywordComponent('const')}
+                                                      numbers
+                                                      {this.operatorComponent(' = ')}
+                                                      props.numbers
+                                                      {this.punctuationComponent(';')}
+                                                    </p>
+                                                    <p>
+                                                      {this.keywordComponent('const')}
+                                                      listItems
+                                                      {this.operatorComponent(' = ')}
+                                                      numbers.
+                                                      {this.funcNameComponent('map')}
+                                                      {this.punctuationComponent('((')}
+                                                      number
+                                                      {this.punctuationComponent(') =>')}
+                                                    </p>
+                                                    <div className="main-contents__codeBox__indent">
+                                                      <p>
+                                                        {this.punctuationComponent('<')}
+                                                        {this.stringComponent('ListItem ')}
+                                                        key
+                                                        {this.operatorComponent('=')}
+                                                        {this.punctuationComponent('{')}
+                                                        number.toString
+                                                        {this.punctuationComponent('()} ')}
+                                                        value
+                                                        {this.operatorComponent('=')}
+                                                        {this.punctuationComponent('{')}
+                                                        number
+                                                        {this.punctuationComponent('} />')}
+                                                      </p>
+                                                    </div>
+                                                    <p>
+                                                      {this.punctuationComponent(');')}
+                                                    </p>
+                                                    <p>
+                                                      {this.keywordComponent('return')}
+                                                      {this.punctuationComponent('(')}
+                                                    </p>
+                                                    <div className="main-contents__codeBox__indent">
+                                                      <p>
+                                                        {this.elementComponent('ul')}
+                                                      </p>
+                                                      <div className="main-contents__codeBox__indent">
+                                                        <p>
+                                                          {this.punctuationComponent('{')}
+                                                          listItems
+                                                          {this.punctuationComponent('}')}
+                                                        </p>
+                                                      </div>
+                                                      <p>
+                                                        {this.closeElementComponent('ul')}
+                                                      </p>
+                                                    </div>
+                                                    <p>
+                                                      {this.punctuationComponent(');')}
+                                                    </p>
+                                                  </div>
+                                                  <p>
+                                                    {this.punctuationComponent('}')}
+                                                  </p>
+                                                  <br />
 
-                                                    function NumberList(props) {
-                                                      const numbers = props.numbers;
-                                                      const listItems = numbers.map((number) =>
-                                                        <ListItem key={number.toString()} value={number} />
-                                                      );
-                                                      return (
-                                                        <ul>
-                                                          {listItems}
-                                                        </ul>
-                                                      );
-                                                    }
-
-                                                    const numbers = [1, 2, 3, 4, 5];
-                                                    ReactDOM.render(
-                                                      <NumberList numbers={numbers} />,
-                                                      document.getElementById('root')
-                                                    );
-
-                                                    const numbers = [1, 2, 3, 4, 5];
-                                                    ReactDOM.render(
-                                                      <NumberList numbers={numbers} />,
-                                                      document.getElementById('root')
-                                                    ); */}
+                                                  <p>
+                                                    {this.keywordComponent('const')}
+                                                    numbers
+                                                    {this.punctuationComponent(' = [')}
+                                                    1, 2, 3, 4, 5
+                                                    {this.punctuationComponent('];')}
+                                                  </p>
+                                                  
+                                                  <p>
+                                                    ReactDOM
+                                                    {this.punctuationComponent('.')}
+                                                    {this.funcNameComponent('render')}
+                                                    {this.punctuationComponent('(')}
+                                                  </p>
+                                                  <div className="main-contents__codeBox__indent">
+                                                    <p>
+                                                      {this.punctuationComponent('<')}
+                                                      <span className="main-contents__codeBox__element">NumberList</span>
+                                                      <span className="main-contents__codeBox__attribute"> numbers</span>
+                                                      {this.operatorComponent('=')}
+                                                      {this.punctuationComponent('{')}
+                                                      numbers
+                                                      {this.punctuationComponent('} />,')}
+                                                    </p>
+                                                    <p>
+                                                      document
+                                                      {this.punctuationComponent('.')}
+                                                      {this.funcNameComponent('getElementById')}
+                                                      {this.punctuationComponent('(')}
+                                                      {this.stringComponent("'root'")}
+                                                      {this.punctuationComponent(')')}
+                                                    </p>
+                                                  </div>
+                                                  <p className="main-contents__codeBox__interval">
+                                                    {this.punctuationComponent(');')}
                                                   </p>
                                               </code>
                                           </pre>
@@ -1048,13 +2256,44 @@ class Content extends React.Component {
                                           <pre className="main-contents__codeBox">
                                               <code>
                                                   <p>
-                                                    後ほど修正
-                                                    {/* const content = posts.map((post) =>
-                                                      <Post
-                                                        key={post.id}
-                                                        id={post.id}
-                                                        title={post.title} />
-                                                    ); */}
+                                                    {this.keywordComponent('const')}
+                                                    content
+                                                    {this.operatorComponent(' = ')}
+                                                    post.
+                                                    {this.funcNameComponent('map')}
+                                                    {this.punctuationComponent('((')}
+                                                    post
+                                                    {this.punctuationComponent(') =>')}
+                                                  </p>
+                                                  <p>
+                                                    {this.punctuationComponent('<')}
+                                                    {this.stringComponent('Post')}
+                                                  </p>
+                                                  <div className="main-contents__codeBox__indent">
+                                                    <p>
+                                                      <span className="main-contents__codeBox__attribute"> key</span>
+                                                      {this.operatorComponent('=')}
+                                                      {this.punctuationComponent('{')}
+                                                      post.id
+                                                      {this.punctuationComponent('}')}
+                                                    </p>
+                                                    <p>
+                                                      <span className="main-contents__codeBox__attribute"> id</span>
+                                                      {this.operatorComponent('=')}
+                                                      {this.punctuationComponent('{')}
+                                                      post.id
+                                                      {this.punctuationComponent('}')}
+                                                    </p>
+                                                    <p>
+                                                      <span className="main-contents__codeBox__attribute"> title</span>
+                                                      {this.operatorComponent('=')}
+                                                      {this.punctuationComponent('{')}
+                                                      post.title
+                                                      {this.punctuationComponent('} />')}
+                                                    </p>
+                                                  </div>
+                                                  <p>
+                                                    {this.punctuationComponent(');')}
                                                   </p>
                                               </code>
                                           </pre>
@@ -1080,66 +2319,583 @@ class Content extends React.Component {
                                           <pre className="main-contents__codeBox">
                                               <code>
                                                   <p>
-                                                    後ほど修正
-                                                    {/* class App extends React.Component {
-                                                      constructor(props) {
-                                                        super(props);
-                                                        this.state = {
-                                                          name: '',
-                                                          flavor: 'coconut',
-                                                          essay: 'Please write an essay about your favorite DOM element.',
-                                                        };
+                                                    {this.keywordComponent('class')}
+                                                    {this.funcNameComponent('App')}
+                                                    {this.keywordComponent(' extends')}
+                                                    {this.keywordComponent('React.Component')}
+                                                    {this.punctuationComponent('{')}
+                                                  </p>
+                                                  <div className="main-contents__codeBox__indent">
+                                                    <p>
+                                                      {this.keywordComponent('constructor')}
+                                                      {this.punctuationComponent('(')}
+                                                      props
+                                                      {this.punctuationComponent(')')}
+                                                      {this.punctuationComponent('{')}
+                                                    </p>
+                                                    <div className="main-contents__codeBox__indent">
+                                                      <p>
+                                                        {this.keywordComponent('super')}
+                                                        {this.punctuationComponent('(')}
+                                                        props
+                                                        {this.punctuationComponent(')')}
+                                                        {this.punctuationComponent(';')}
+                                                      </p>
+                                                      <p>
+                                                        this.state
+                                                        {this.operatorComponent('=')}
+                                                        {this.punctuationComponent('{')}
+                                                      </p>
+                                                      <div className="main-contents__codeBox__indent">
+                                                        <p>
+                                                          name:
+                                                          {this.keywordComponent(" ''")},
+                                                        </p>
+                                                        <p>
+                                                          flavor:
+                                                          {this.keywordComponent(" 'coconut'")},
+                                                        </p>
+                                                        <p>
+                                                          essay:
+                                                          {this.keywordComponent(" 'Please write an essay about your favorite DOM element.'")},
+                                                        </p>
+                                                      </div>
+                                                      <p>
+                                                        {this.punctuationComponent('};')}
+                                                      </p>
+                                                      <br />
 
-                                                        this.handleChangeName = this.handleChangeName.bind(this);
-                                                        this.handleChangeFlavor = this.handleChangeFlavor.bind(this);
-                                                        this.handleChangeEssay = this.handleChangeEssay.bind(this);
-                                                        this.handleSubmit = this.handleSubmit.bind(this);
-                                                      }
+                                                      <p>
+                                                        this.handleChangeName
+                                                        {this.operatorComponent(' = ')}
+                                                        {this.funcNameComponent('this.handleChangeName.bind')}
+                                                        {this.punctuationComponent('(')}
+                                                        this
+                                                        {this.punctuationComponent(');')}
+                                                      </p>
+                                                      <p>
+                                                        this.handleChangeFlavor
+                                                        {this.operatorComponent(' = ')}
+                                                        {this.funcNameComponent('this.handleChangeFlavor.bind')}
+                                                        {this.punctuationComponent('(')}
+                                                        this
+                                                        {this.punctuationComponent(');')}
+                                                      </p>
+                                                      <p>
+                                                        this.handleChangeEssay
+                                                        {this.operatorComponent(' = ')}
+                                                        {this.funcNameComponent('this.handleChangeEssay.bind')}
+                                                        {this.punctuationComponent('(')}
+                                                        this
+                                                        {this.punctuationComponent(');')}
+                                                      </p>
+                                                      <p>
+                                                        this.handleChangeSubmit
+                                                        {this.operatorComponent(' = ')}
+                                                        {this.funcNameComponent('this.handleChangeSubmit.bind')}
+                                                        {this.punctuationComponent('(')}
+                                                        this
+                                                        {this.punctuationComponent(');')}
+                                                      </p>
+                                                    </div>
+                                                    <p>
+                                                      {this.punctuationComponent('}')}
+                                                    </p>
+                                                    <br />
+                                                    
+                                                    <p>
+                                                      {this.keywordComponent('handleChangeName')}
+                                                      {this.punctuationComponent('(')}
+                                                      event
+                                                      {this.punctuationComponent(') {')}
+                                                    </p>
+                                                    <div className="main-contents__codeBox__indent">
+                                                      <p>
+                                                       {this.funcNameComponent('this.setState')}
+                                                        {this.punctuationComponent('({')}
+                                                        name: event.target.value
+                                                        {this.punctuationComponent('});')}
+                                                      </p>
+                                                    </div>
+                                                    <p>
+                                                      {this.punctuationComponent('}')}
+                                                    </p>
+                                                    <br />
 
-                                                      handleChangeName(event) {
-                                                        this.setState({name: event.target.value});
-                                                      }
+                                                    <p>
+                                                      {this.keywordComponent('handleChangeFlavor')}
+                                                      {this.punctuationComponent('(')}
+                                                      event
+                                                      {this.punctuationComponent(') {')}
+                                                    </p>
+                                                    <div className="main-contents__codeBox__indent">
+                                                      <p>
+                                                        {this.funcNameComponent('this.setState')}
+                                                        {this.punctuationComponent('({')}
+                                                        flavor: event.target.value
+                                                        {this.punctuationComponent('});')}
+                                                      </p>
+                                                    </div>
+                                                    <p>
+                                                      {this.punctuationComponent('}')}
+                                                    </p>
+                                                    <br />
 
-                                                      handleChangeFlavor(event) {
-                                                        this.setState({flavor: event.target.value});
-                                                      }
+                                                    <p>
+                                                      {this.keywordComponent('handleChangeEssay')}
+                                                      {this.punctuationComponent('(')}
+                                                      event
+                                                      {this.punctuationComponent(') {')}
+                                                    </p>
+                                                    <div className="main-contents__codeBox__indent">
+                                                      <p>
+                                                        {this.funcNameComponent('this.setState')}
+                                                        {this.punctuationComponent('({')}
+                                                        essay: event.target.value
+                                                        {this.punctuationComponent('});')}
+                                                      </p>
+                                                    </div>
+                                                    <p>
+                                                      {this.punctuationComponent('}')}
+                                                    </p>
+                                                    <br />
 
-                                                      handleChangeEssay(event) {
-                                                        this.setState({essay: event.target.value});
-                                                      }
+                                                    <p>
+                                                      {this.keywordComponent('handleSubmit')}
+                                                      {this.punctuationComponent('(')}
+                                                      event
+                                                      {this.punctuationComponent(') {')}
+                                                    </p>
+                                                    <div className="main-contents__codeBox__indent">
+                                                      <p>
+                                                        {this.funcNameComponent('alert')}
+                                                        {this.punctuationComponent('(')}
+                                                        'A name was submitted: ' + this.state.name
+                                                        {this.punctuationComponent(');')}
+                                                      </p>
+                                                      <p>
+                                                        {this.funcNameComponent('alert')}
+                                                        {this.punctuationComponent('(')}
+                                                        'Your favorite flavor is: ' + this.state.flavor
+                                                        {this.punctuationComponent(');')}
+                                                      </p>
+                                                      <p>
+                                                        {this.funcNameComponent('alert')}
+                                                        {this.punctuationComponent('(')}
+                                                        'An essay was submitted: ' + this.state.essay
+                                                        {this.punctuationComponent(');')}
+                                                      </p>
+                                                      <p>
+                                                        event.
+                                                        {this.funcNameComponent('preventDefault')}
+                                                        {this.punctuationComponent('();')}
+                                                      </p>
+                                                    </div>
+                                                    <p>
+                                                      {this.punctuationComponent('}')}
+                                                    </p>
+                                                    <br />
 
-                                                      handleSubmit(event) {
-                                                        alert('A name was submitted: ' + this.state.name);
-                                                        alert('Your favorite flavor is: ' + this.state.flavor);
-                                                        alert('An essay was submitted: ' + this.state.essay);
-                                                        event.preventDefault();
-                                                      }
-
-                                                      render() {
-                                                        return (
-                                                          <form onSubmit={this.handleSubmit}>
-                                                            <label>
+                                                    <p>
+                                                      {this.keywordComponent('render')}
+                                                      {this.punctuationComponent('()')}
+                                                      {this.punctuationComponent('{')}
+                                                    </p>
+                                                    <div className="main-contents__codeBox__indent">
+                                                      <p>
+                                                        {this.keywordComponent('return')}
+                                                        {this.punctuationComponent('(')}
+                                                      </p>
+                                                      <div className="main-contents__codeBox__indent">
+                                                        <p>
+                                                          {this.attributeElementComponent('form','onSubmit','{this.handleSubmit}')}
+                                                        </p>
+                                                        <div className="main-contents__codeBox__indent">
+                                                          <p>
+                                                            {this.elementComponent('label')}
+                                                          </p>
+                                                          <div className="main-contents__codeBox__indent">
+                                                            <p>
                                                               Name:
-                                                              <input type="text" value={this.state.name} onChange={this.handleChangeName} />
-                                                            </label>
-                                                            <label>
+                                                            </p>
+                                                            <p>
+                                                              {this.punctuationComponent('<')}
+                                                              {this.stringComponent('input')}
+
+                                                              <span className="main-contents__codeBox__attribute"> type</span>
+                                                              {this.operatorComponent('=')}
+                                                              "text"
+
+                                                              <span className="main-contents__codeBox__attribute"> value</span>
+                                                              {this.operatorComponent('=')}
+                                                              {this.punctuationComponent('{')}
+                                                              this.state.name
+                                                              {this.punctuationComponent('}')}
+
+                                                              <span className="main-contents__codeBox__attribute"> onChange</span>
+                                                              {this.operatorComponent('=')}
+                                                              {this.punctuationComponent('{')}
+                                                              this.handleChangeName
+                                                              {this.punctuationComponent('} />')}
+                                                            </p>
+                                                          </div>
+                                                          <p>
+                                                            {this.closeElementComponent('label')}
+                                                          </p>
+
+                                                          <p>
+                                                            {this.elementComponent('label')}
+                                                          </p>
+                                                          <div className="main-contents__codeBox__indent">
+                                                            <p>
                                                               Pick your favorite flavor:
-                                                              <select value={this.state.flavor} onChange={this.handleChangeFlavor}>
-                                                                <option value="grapefruit">Grapefruit</option>
-                                                                <option value="lime">Lime</option>
-                                                                <option value="coconut">Coconut</option>
-                                                                <option value="mango">Mango</option>
-                                                              </select>
-                                                            </label>
-                                                            <label>
+                                                            </p>
+                                                            <p>
+                                                              {this.punctuationComponent('<')}
+                                                              {this.stringComponent('select')}
+
+                                                              <span className="main-contents__codeBox__attribute"> value</span>
+                                                              {this.operatorComponent('=')}
+                                                              {this.punctuationComponent('{')}
+                                                              this.state.flavor
+                                                              {this.punctuationComponent('}')}
+
+                                                              <span className="main-contents__codeBox__attribute"> onChange</span>
+                                                              {this.operatorComponent('=')}
+                                                              {this.punctuationComponent('{')}
+                                                              this.handleChangeFlavor
+                                                              {this.punctuationComponent('} >')}
+                                                            </p>
+                                                            <div className="main-contents__codeBox__indent">
+                                                              <p>
+                                                                {this.attributeElementComponent('option','value','"grapefruit"')}
+                                                                Grapefruit
+                                                                {this.closeElementComponent('option')}
+                                                              </p>
+                                                              <p>
+                                                                {this.attributeElementComponent('option','value','"lime"')}
+                                                                Lime
+                                                                {this.closeElementComponent('option')}
+                                                              </p>
+                                                              <p>
+                                                                {this.attributeElementComponent('option','value','"coconut"')}
+                                                                Coconut
+                                                                {this.closeElementComponent('option')}
+                                                              </p>
+                                                              <p>
+                                                                {this.attributeElementComponent('option','value','"mango"')}
+                                                                Mango
+                                                                {this.closeElementComponent('option')}
+                                                              </p>
+                                                            </div>
+                                                            <p>
+                                                              {this.closeElementComponent('select')}
+                                                            </p>
+                                                          </div>
+                                                          <p>
+                                                            {this.closeElementComponent('label')}
+                                                          </p>
+
+                                                          <p>
+                                                            {this.elementComponent('label')}
+                                                          </p>
+                                                          <div className="main-contents__codeBox__indent">
+                                                            <p>
                                                               Essay:
-                                                              <textarea value={this.state.essay} onChange={this.handleChangeEssay} />
-                                                            </label>
-                                                            <input type="submit" value="Submit" />
-                                                          </form>
-                                                        );
-                                                      }
-                                                    } */}
+                                                            </p>
+                                                            <p>
+                                                              {this.punctuationComponent('<')}
+                                                              {this.stringComponent('textarea')}
+
+                                                              <span className="main-contents__codeBox__attribute"> value</span>
+                                                              {this.operatorComponent('=')}
+                                                              {this.punctuationComponent('{')}
+                                                              this.state.essay
+                                                              {this.punctuationComponent('}')}
+
+                                                              <span className="main-contents__codeBox__attribute"> onChange</span>
+                                                              {this.operatorComponent('=')}
+                                                              {this.punctuationComponent('{')}
+                                                              this.handleChangeEssay
+                                                              {this.punctuationComponent('} />')}
+                                                            </p>
+                                                          </div>
+                                                          <p>
+                                                            {this.closeElementComponent('label')}
+                                                          </p>
+                                                          <p>
+                                                            {this.punctuationComponent('<')}
+                                                            {this.stringComponent('input')}
+
+                                                            <span className="main-contents__codeBox__attribute"> type</span>
+                                                            {this.operatorComponent('=')}
+                                                            "submit"
+
+                                                            <span className="main-contents__codeBox__attribute"> value</span>
+                                                            {this.operatorComponent('=')}
+                                                            "Submit"
+                                                            {this.punctuationComponent(' />')}
+                                                          </p>
+                                                        </div>
+                                                        <p>
+                                                          {this.closeElementComponent('form')}
+                                                        </p>
+                                                      </div>
+                                                      <p>
+                                                        {this.punctuationComponent(');')}
+                                                      </p>
+                                                    </div>
+                                                    <p>
+                                                      {this.punctuationComponent('}')}
+                                                    </p>
+                                                    <p>
+                                                      {this.punctuationComponent('}')}
+                                                    </p>
+                                                    <p>
+                                                      {this.punctuationComponent(') {')}
+                                                    </p>
+                                                    <div className="main-contents__codeBox__indent">
+                                                      <p>
+                                                        {this.funcNameComponent('this.setState')}
+                                                        {this.punctuationComponent('({')}
+                                                        name: event.target.value
+                                                        {this.punctuationComponent('});')}
+                                                      </p>
+                                                    </div>
+                                                    <p>
+                                                      {this.punctuationComponent('}')}
+                                                    </p>
+                                                    <br />
+
+                                                    <p>
+                                                      {this.keywordComponent('handleChangeFlavor')}
+                                                      {this.punctuationComponent('(')}
+                                                      event
+                                                      {this.punctuationComponent(') {')}
+                                                    </p>
+                                                    <div className="main-contents__codeBox__indent">
+                                                      <p>
+                                                        {this.funcNameComponent('this.setState')}
+                                                        {this.punctuationComponent('({')}
+                                                        flavor: event.target.value
+                                                        {this.punctuationComponent('});')}
+                                                      </p>
+                                                    </div>
+                                                    <p>
+                                                      {this.punctuationComponent('}')}
+                                                    </p>
+                                                    <br />
+
+                                                    <p>
+                                                      {this.keywordComponent('handleChangeEssay')}
+                                                      {this.punctuationComponent('(')}
+                                                      event
+                                                      {this.punctuationComponent(') {')}
+                                                    </p>
+                                                    <div className="main-contents__codeBox__indent">
+                                                      <p>
+                                                        {this.funcNameComponent('this.setState')}
+                                                        {this.punctuationComponent('({')}
+                                                        essay: event.target.value
+                                                        {this.punctuationComponent('});')}
+                                                      </p>
+                                                    </div>
+                                                    <p>
+                                                      {this.punctuationComponent('}')}
+                                                    </p>
+                                                    <br />
+
+                                                    <p>
+                                                      {this.keywordComponent('handleSubmit')}
+                                                      {this.punctuationComponent('(')}
+                                                      event
+                                                      {this.punctuationComponent(') {')}
+                                                    </p>
+                                                    <div className="main-contents__codeBox__indent">
+                                                      <p>
+                                                        {this.funcNameComponent('alert')}
+                                                        {this.punctuationComponent('(')}
+                                                        'A name was submitted: ' + this.state.name
+                                                        {this.punctuationComponent(');')}
+                                                      </p>
+                                                      <p>
+                                                        {this.funcNameComponent('alert')}
+                                                        {this.punctuationComponent('(')}
+                                                        'Your favorite flavor is: ' + this.state.flavor
+                                                        {this.punctuationComponent(');')}
+                                                      </p>
+                                                      <p>
+                                                        {this.funcNameComponent('alert')}
+                                                        {this.punctuationComponent('(')}
+                                                        'An essay was submitted: ' + this.state.essay
+                                                        {this.punctuationComponent(');')}
+                                                      </p>
+                                                      <p>
+                                                        event.
+                                                        {this.funcNameComponent('preventDefault')}
+                                                        {this.punctuationComponent('();')}
+                                                      </p>
+                                                    </div>
+                                                    <p>
+                                                      {this.punctuationComponent('}')}
+                                                    </p>
+                                                    <br />
+
+                                                    <p>
+                                                      {this.keywordComponent('render')}
+                                                      {this.punctuationComponent('()')}
+                                                      {this.punctuationComponent('{')}
+                                                    </p>
+                                                    <div className="main-contents__codeBox__indent">
+                                                      <p>
+                                                        {this.keywordComponent('return')}
+                                                        {this.punctuationComponent('(')}
+                                                      </p>
+                                                      <div className="main-contents__codeBox__indent">
+                                                        <p>
+                                                          {this.attributeElementComponent('form','onSubmit','{this.handleSubmit}')}
+                                                        </p>
+                                                        <div className="main-contents__codeBox__indent">
+                                                          <p>
+                                                            {this.elementComponent('label')}
+                                                          </p>
+                                                          <div className="main-contents__codeBox__indent">
+                                                            <p>
+                                                              Name:
+                                                            </p>
+                                                            <p>
+                                                              {this.punctuationComponent('<')}
+                                                              {this.stringComponent('input')}
+
+                                                              <span className="main-contents__codeBox__attribute"> type</span>
+                                                              {this.operatorComponent('=')}
+                                                              "text"
+
+                                                              <span className="main-contents__codeBox__attribute"> value</span>
+                                                              {this.operatorComponent('=')}
+                                                              {this.punctuationComponent('{')}
+                                                              this.state.name
+                                                              {this.punctuationComponent('}')}
+
+                                                              <span className="main-contents__codeBox__attribute"> onChange</span>
+                                                              {this.operatorComponent('=')}
+                                                              {this.punctuationComponent('{')}
+                                                              this.handleChangeName
+                                                              {this.punctuationComponent('} />')}
+                                                            </p>
+                                                          </div>
+                                                          <p>
+                                                            {this.closeElementComponent('label')}
+                                                          </p>
+
+                                                          <p>
+                                                            {this.elementComponent('label')}
+                                                          </p>
+                                                          <div className="main-contents__codeBox__indent">
+                                                            <p>
+                                                              Pick your favorite flavor:
+                                                            </p>
+                                                            <p>
+                                                              {this.punctuationComponent('<')}
+                                                              {this.stringComponent('select')}
+
+                                                              <span className="main-contents__codeBox__attribute"> value</span>
+                                                              {this.operatorComponent('=')}
+                                                              {this.punctuationComponent('{')}
+                                                              this.state.flavor
+                                                              {this.punctuationComponent('}')}
+
+                                                              <span className="main-contents__codeBox__attribute"> onChange</span>
+                                                              {this.operatorComponent('=')}
+                                                              {this.punctuationComponent('{')}
+                                                              this.handleChangeFlavor
+                                                              {this.punctuationComponent('} >')}
+                                                            </p>
+                                                            <div className="main-contents__codeBox__indent">
+                                                              <p>
+                                                                {this.attributeElementComponent('option','value','"grapefruit"')}
+                                                                Grapefruit
+                                                                {this.closeElementComponent('option')}
+                                                              </p>
+                                                              <p>
+                                                                {this.attributeElementComponent('option','value','"lime"')}
+                                                                Lime
+                                                                {this.closeElementComponent('option')}
+                                                              </p>
+                                                              <p>
+                                                                {this.attributeElementComponent('option','value','"coconut"')}
+                                                                Coconut
+                                                                {this.closeElementComponent('option')}
+                                                              </p>
+                                                              <p>
+                                                                {this.attributeElementComponent('option','value','"mango"')}
+                                                                Mango
+                                                                {this.closeElementComponent('option')}
+                                                              </p>
+                                                            </div>
+                                                            <p>
+                                                              {this.closeElementComponent('select')}
+                                                            </p>
+                                                          </div>
+                                                          <p>
+                                                            {this.closeElementComponent('label')}
+                                                          </p>
+
+                                                          <p>
+                                                            {this.elementComponent('label')}
+                                                          </p>
+                                                          <div className="main-contents__codeBox__indent">
+                                                            <p>
+                                                              Essay:
+                                                            </p>
+                                                            <p>
+                                                              {this.punctuationComponent('<')}
+                                                              {this.stringComponent('textarea')}
+
+                                                              <span className="main-contents__codeBox__attribute"> value</span>
+                                                              {this.operatorComponent('=')}
+                                                              {this.punctuationComponent('{')}
+                                                              this.state.essay
+                                                              {this.punctuationComponent('}')}
+
+                                                              <span className="main-contents__codeBox__attribute"> onChange</span>
+                                                              {this.operatorComponent('=')}
+                                                              {this.punctuationComponent('{')}
+                                                              this.handleChangeEssay
+                                                              {this.punctuationComponent('} />')}
+                                                            </p>
+                                                          </div>
+                                                          <p>
+                                                            {this.closeElementComponent('label')}
+                                                          </p>
+                                                          <p>
+                                                            {this.punctuationComponent('<')}
+                                                            {this.stringComponent('input')}
+
+                                                            <span className="main-contents__codeBox__attribute"> type</span>
+                                                            {this.operatorComponent('=')}
+                                                            "submit"
+
+                                                            <span className="main-contents__codeBox__attribute"> value</span>
+                                                            {this.operatorComponent('=')}
+                                                            "Submit"
+                                                            {this.punctuationComponent(' />')}
+                                                          </p>
+                                                        </div>
+                                                        <p>
+                                                          {this.closeElementComponent('form')}
+                                                        </p>
+                                                      </div>
+                                                      <p>
+                                                        {this.punctuationComponent(');')}
+                                                      </p>
+                                                    </div>
+                                                    <p>
+                                                      {this.punctuationComponent('}')}
+                                                    </p>
+                                                  </div>
+                                                  <p>
+                                                    {this.punctuationComponent('}')}
                                                   </p>
                                               </code>
                                           </pre>
@@ -1163,68 +2919,333 @@ class Content extends React.Component {
                                           <pre className="main-contents__codeBox">
                                               <code>
                                                   <p>
-                                                    後ほど修正
-                                                    {/* class App extends React.Component {
-                                                      constructor(props) {
-                                                        super(props);
-                                                        this.state = {
-                                                          name: '',
-                                                          flavor: 'coconut',
-                                                          essay: 'Please write an essay about your favorite DOM element.',
-                                                        };
+                                                    {this.keywordComponent('class')}
+                                                    {this.funcNameComponent('App')}
+                                                    {this.keywordComponent(' extends')}
+                                                    {this.keywordComponent('React.Component')}
+                                                    {this.punctuationComponent('{')}
+                                                  </p>
+                                                  <div className="main-contents__codeBox__indent">
+                                                    <p>
+                                                      {this.keywordComponent('constructor')}
+                                                      {this.punctuationComponent('(')}
+                                                      props
+                                                      {this.punctuationComponent(')')}
+                                                      {this.punctuationComponent('{')}
+                                                    </p>
+                                                    <div className="main-contents__codeBox__indent">
+                                                      <p>
+                                                        {this.keywordComponent('super')}
+                                                        {this.punctuationComponent('(')}
+                                                        props
+                                                        {this.punctuationComponent(')')}
+                                                        {this.punctuationComponent(';')}
+                                                      </p>
+                                                      <p>
+                                                        this.state
+                                                        {this.operatorComponent('=')}
+                                                        {this.punctuationComponent('{')}
+                                                      </p>
+                                                      <div className="main-contents__codeBox__indent">
+                                                        <p>
+                                                          name:
+                                                          {this.keywordComponent(" ''")},
+                                                        </p>
+                                                        <p>
+                                                          flavor:
+                                                          {this.keywordComponent(" 'coconut'")},
+                                                        </p>
+                                                        <p>
+                                                          essay:
+                                                          {this.keywordComponent(" 'Please write an essay about your favorite DOM element.'")},
+                                                        </p>
+                                                      </div>
+                                                      <p>
+                                                        {this.punctuationComponent('};')}
+                                                      </p>
+                                                      <br />
 
-                                                        this.handleInputChange = this.handleInputChange.bind(this);
-                                                        this.handleSubmit = this.handleSubmit.bind(this);
-                                                      }
+                                                      <p>
+                                                        this.handleInputChange
+                                                        {this.operatorComponent(' = ')}
+                                                        {this.funcNameComponent('this.handleInputChange.bind')}
+                                                        {this.punctuationComponent('(')}
+                                                        this
+                                                        {this.punctuationComponent(');')}
+                                                      </p>
+                                                      <p>
+                                                        this.handleSubmit
+                                                        {this.operatorComponent(' = ')}
+                                                        {this.funcNameComponent('this.handleSubmit.bind')}
+                                                        {this.punctuationComponent('(')}
+                                                        this
+                                                        {this.punctuationComponent(');')}
+                                                      </p>
+                                                    </div>
+                                                    <p>
+                                                      {this.punctuationComponent('}')}
+                                                    </p>
+                                                    <br />
+                                                    
+                                                    <p>
+                                                      {this.keywordComponent('handleInputChange')}
+                                                      {this.punctuationComponent('(')}
+                                                      event
+                                                      {this.punctuationComponent(') {')}
+                                                      <div className="main-contents__codeBox__indent">
+                                                        <p>
+                                                          {this.keywordComponent('const')}
+                                                          target
+                                                          {this.operatorComponent(' = ')}
+                                                          event.target
+                                                          {this.punctuationComponent(';')}
+                                                        </p>
+                                                        <p>
+                                                          {this.keywordComponent('const')}
+                                                          value
+                                                          {this.operatorComponent(' = ')}
+                                                          event.value
+                                                          {this.punctuationComponent(';')}
+                                                        </p>
+                                                        <p>
+                                                          {this.keywordComponent('const')}
+                                                          name
+                                                          {this.operatorComponent(' = ')}
+                                                          target.name
+                                                          {this.punctuationComponent(';')}
+                                                        </p>
+                                                        <br />
 
-                                                      handleInputChange(event) {
-                                                        const target = event.target;
-                                                        const value = target.value;
-                                                        const name = target.name;
+                                                        <p>
+                                                          {this.funcNameComponent('this.setState')}
+                                                          {this.punctuationComponent('({')}
+                                                        </p>
+                                                        <div className="main-contents__codeBox__indent">
+                                                          <p>
+                                                            {this.punctuationComponent('[')}
+                                                            name
+                                                            {this.punctuationComponent(']: ')}
+                                                            event.target.value
+                                                          </p>
+                                                        </div>
+                                                        <p>
+                                                          {this.punctuationComponent('});')}
+                                                        </p>
+                                                      </div>
+                                                    </p>
+                                                    <p>
+                                                      {this.punctuationComponent('}')}
+                                                    </p>
+                                                    <br />
 
-                                                        this.setState({
-                                                          [name]: value
-                                                        });
-                                                      }
+                                                    <p>
+                                                      {this.keywordComponent('handleSubmit')}
+                                                      {this.punctuationComponent('(')}
+                                                      event
+                                                      {this.punctuationComponent(') {')}
+                                                    </p>
+                                                    <div className="main-contents__codeBox__indent">
+                                                      <p>
+                                                        {this.funcNameComponent('alert')}
+                                                        {this.punctuationComponent('(')}
+                                                        'A name was submitted: ' + this.state.name
+                                                        {this.punctuationComponent(');')}
+                                                      </p>
+                                                      <p>
+                                                        {this.funcNameComponent('alert')}
+                                                        {this.punctuationComponent('(')}
+                                                        'Your favorite flavor is: ' + this.state.flavor
+                                                        {this.punctuationComponent(');')}
+                                                      </p>
+                                                      <p>
+                                                        {this.funcNameComponent('alert')}
+                                                        {this.punctuationComponent('(')}
+                                                        'An essay was submitted: ' + this.state.essay
+                                                        {this.punctuationComponent(');')}
+                                                      </p>
+                                                      <p>
+                                                        event.
+                                                        {this.funcNameComponent('preventDefault')}
+                                                        {this.punctuationComponent('();')}
+                                                      </p>
+                                                    </div>
+                                                    <p>
+                                                      {this.punctuationComponent('}')}
+                                                    </p>
+                                                    <br />
 
-                                                      handleSubmit(event) {
-                                                        alert('A name was submitted: ' + this.state.name);
-                                                        alert('Your favorite flavor is: ' + this.state.flavor);
-                                                        alert('An essay was submitted: ' + this.state.essay);
-                                                        event.preventDefault();
-                                                      }
-
-                                                      render() {
-                                                        return (
-                                                          <form onSubmit={this.handleSubmit}>
-                                                            <label>
+                                                    <p>
+                                                      {this.keywordComponent('render')}
+                                                      {this.punctuationComponent('()')}
+                                                      {this.punctuationComponent('{')}
+                                                    </p>
+                                                    <div className="main-contents__codeBox__indent">
+                                                      <p>
+                                                        {this.keywordComponent('return')}
+                                                        {this.punctuationComponent('(')}
+                                                      </p>
+                                                      <div className="main-contents__codeBox__indent">
+                                                        <p>
+                                                          {this.attributeElementComponent('form','onSubmit','{this.handleSubmit}')}
+                                                        </p>
+                                                        <div className="main-contents__codeBox__indent">
+                                                          <p>
+                                                            {this.elementComponent('label')}
+                                                          </p>
+                                                          <div className="main-contents__codeBox__indent">
+                                                            <p>
                                                               Name:
-                                                              <input name="name" type="text" value={this.state.name} onChange={this.handleInputChange} />
-                                                            </label>
-                                                            <label>
+                                                            </p>
+                                                            <p>
+                                                              {this.punctuationComponent('<')}
+                                                              {this.stringComponent('input')}
+
+                                                              <span className="main-contents__codeBox__attribute"> name</span>
+                                                              {this.operatorComponent('=')}
+                                                              "name"
+
+                                                              <span className="main-contents__codeBox__attribute"> type</span>
+                                                              {this.operatorComponent('=')}
+                                                              "text"
+
+                                                              <span className="main-contents__codeBox__attribute"> value</span>
+                                                              {this.operatorComponent('=')}
+                                                              {this.punctuationComponent('{')}
+                                                              this.state.name
+                                                              {this.punctuationComponent('}')}
+
+                                                              <span className="main-contents__codeBox__attribute"> onChange</span>
+                                                              {this.operatorComponent('=')}
+                                                              {this.punctuationComponent('{')}
+                                                              this.handleInputChange
+                                                              {this.punctuationComponent('} />')}
+                                                            </p>
+                                                          </div>
+                                                          <p>
+                                                            {this.closeElementComponent('label')}
+                                                          </p>
+
+                                                          <p>
+                                                            {this.elementComponent('label')}
+                                                          </p>
+                                                          <div className="main-contents__codeBox__indent">
+                                                            <p>
                                                               Pick your favorite flavor:
-                                                              <select name="flavor" value={this.state.flavor} onChange={this.handleInputChange}>
-                                                                <option value="grapefruit">Grapefruit</option>
-                                                                <option value="lime">Lime</option>
-                                                                <option value="coconut">Coconut</option>
-                                                                <option value="mango">Mango</option>
-                                                              </select>
-                                                            </label>
-                                                            <label>
+                                                            </p>
+                                                            <p>
+                                                              {this.punctuationComponent('<')}
+                                                              {this.stringComponent('select')}
+
+                                                              <span className="main-contents__codeBox__attribute"> name</span>
+                                                              {this.operatorComponent('=')}
+                                                              "flavor"
+
+                                                              <span className="main-contents__codeBox__attribute"> value</span>
+                                                              {this.operatorComponent('=')}
+                                                              {this.punctuationComponent('{')}
+                                                              this.state.flavor
+                                                              {this.punctuationComponent('}')}
+
+                                                              <span className="main-contents__codeBox__attribute"> onChange</span>
+                                                              {this.operatorComponent('=')}
+                                                              {this.punctuationComponent('{')}
+                                                              this.handleInputChange
+                                                              {this.punctuationComponent('} >')}
+                                                            </p>
+                                                            <div className="main-contents__codeBox__indent">
+                                                              <p>
+                                                                {this.attributeElementComponent('option','value','"grapefruit"')}
+                                                                Grapefruit
+                                                                {this.closeElementComponent('option')}
+                                                              </p>
+                                                              <p>
+                                                                {this.attributeElementComponent('option','value','"lime"')}
+                                                                Lime
+                                                                {this.closeElementComponent('option')}
+                                                              </p>
+                                                              <p>
+                                                                {this.attributeElementComponent('option','value','"coconut"')}
+                                                                Coconut
+                                                                {this.closeElementComponent('option')}
+                                                              </p>
+                                                              <p>
+                                                                {this.attributeElementComponent('option','value','"mango"')}
+                                                                Mango
+                                                                {this.closeElementComponent('option')}
+                                                              </p>
+                                                            </div>
+                                                            <p>
+                                                              {this.closeElementComponent('select')}
+                                                            </p>
+                                                          </div>
+                                                          <p>
+                                                            {this.closeElementComponent('label')}
+                                                          </p>
+
+                                                          <p>
+                                                            {this.elementComponent('label')}
+                                                          </p>
+                                                          <div className="main-contents__codeBox__indent">
+                                                            <p>
                                                               Essay:
-                                                              <textarea name="essay" value={this.state.essay} onChange={this.handleInputChange} />
-                                                            </label>
-                                                            <input type="submit" value="Submit" />
-                                                          </form>
-                                                        );
-                                                      }
-                                                    } */}
+                                                            </p>
+                                                            <p>
+                                                              {this.punctuationComponent('<')}
+                                                              {this.stringComponent('textarea')}
+
+                                                              <span className="main-contents__codeBox__attribute"> name</span>
+                                                              {this.operatorComponent('=')}
+                                                              "essay"
+
+                                                              <span className="main-contents__codeBox__attribute"> value</span>
+                                                              {this.operatorComponent('=')}
+                                                              {this.punctuationComponent('{')}
+                                                              this.state.essay
+                                                              {this.punctuationComponent('}')}
+
+                                                              <span className="main-contents__codeBox__attribute"> onChange</span>
+                                                              {this.operatorComponent('=')}
+                                                              {this.punctuationComponent('{')}
+                                                              this.handleInputChange
+                                                              {this.punctuationComponent('} />')}
+                                                            </p>
+                                                          </div>
+                                                          <p>
+                                                            {this.closeElementComponent('label')}
+                                                          </p>
+                                                          <p>
+                                                            {this.punctuationComponent('<')}
+                                                            {this.stringComponent('input')}
+
+                                                            <span className="main-contents__codeBox__attribute"> type</span>
+                                                            {this.operatorComponent('=')}
+                                                            "submit"
+
+                                                            <span className="main-contents__codeBox__attribute"> value</span>
+                                                            {this.operatorComponent('=')}
+                                                            "Submit"
+                                                            {this.punctuationComponent(' />')}
+                                                          </p>
+                                                        </div>
+                                                        <p>
+                                                          {this.closeElementComponent('form')}
+                                                        </p>
+                                                      </div>
+                                                      <p>
+                                                        {this.punctuationComponent(');')}
+                                                      </p>
+                                                    </div>
+                                                    <p>
+                                                      {this.punctuationComponent('}')}
+                                                    </p>
+                                                  </div>
+                                                  <p>
+                                                    {this.punctuationComponent('}')}
                                                   </p>
                                               </code>
                                           </pre>
                                       </div>
                                   </div>
-
                               </div>
 
                               {/* --------   Chapter8   ----------------------------------------------------------------------------                    */}
@@ -1245,26 +3266,90 @@ class Content extends React.Component {
                                           <pre className="main-contents__codeBox">
                                               <code>
                                                   <p>
-                                                    後ほど修正
-                                                    {/* function FancyBorder(props) {
-                                                      return (
-                                                        <div className={'FancyBorder FancyBorder-' + props.color}>
-                                                          {props.children}
-                                                        </div>
-                                                      );
-                                                    }
-                                                    function WelcomeDialog() {
-                                                      return (
-                                                        <FancyBorder color="blue">
-                                                          <h1 className="Dialog-title">
+                                                    {this.keywordComponent('function')}
+                                                    {this.funcNameComponent('FancyBorder')}
+                                                    {this.punctuationComponent('(')}
+                                                    props
+                                                    {this.punctuationComponent(') {')}
+                                                  </p>
+                                                  <div className="main-contents__codeBox__indent">
+                                                    <p>
+                                                      {this.keywordComponent('return')}
+                                                      {this.punctuationComponent('(')}
+                                                    </p>
+                                                    <div className="main-contents__codeBox__indent">
+                                                      <p>
+                                                        {this.attributeElementComponent('div','className',"{'FancyBorder FancyBorder-' + props.color}")}
+                                                      </p>
+                                                      <div className="main-contents__codeBox__indent">
+                                                        <p>
+                                                          {this.punctuationComponent('{')}
+                                                          props.children
+                                                          {this.punctuationComponent('}')}
+                                                        </p>
+                                                      </div>
+                                                      <p>
+                                                        {this.closeElementComponent('div')}
+                                                      </p>
+                                                    </div>
+                                                    <p>
+                                                    {this.punctuationComponent(');')}
+                                                  </p>
+                                                  </div>
+                                                  <p>
+                                                    {this.punctuationComponent('}')}
+                                                  </p>
+
+                                                  <p>
+                                                    {this.keywordComponent('function')}
+                                                    {this.funcNameComponent('WelcomeDialog')}
+                                                    {this.punctuationComponent('() {')}
+                                                  </p>
+                                                  <div className="main-contents__codeBox__indent">
+                                                    <p>
+                                                      {this.keywordComponent('return')}
+                                                      {this.punctuationComponent('(')}
+                                                    </p>
+                                                    <div className="main-contents__codeBox__indent">
+                                                      <p>
+                                                        {this.attributeElementComponent('FancyBorder','color','"blue"')}
+                                                      </p>
+                                                      <div className="main-contents__codeBox__indent">
+                                                        <p>
+                                                          {this.attributeElementComponent('h1','className','"Dialog-title"')}
+                                                        </p>
+                                                        <div className="main-contents__codeBox__indent">
+                                                          <p>
                                                             Welcome
-                                                          </h1>
-                                                          <p className="Dialog-message">
+                                                          </p>
+                                                        </div>
+                                                        <p>
+                                                        {this.closeElementComponent('h1')}
+                                                        </p>
+
+                                                        <p>
+                                                          {this.attributeElementComponent('p','className','"Dialog-message"')}
+                                                        </p>
+                                                        <div className="main-contents__codeBox__indent">
+                                                          <p>
                                                             Thank you for visiting our spacecraft!
                                                           </p>
-                                                        </FancyBorder>
-                                                      );
-                                                    } */}
+                                                        </div>
+                                                        <p>
+                                                        {this.closeElementComponent('p')}
+                                                        </p>
+
+                                                      </div>
+                                                      <p>
+                                                        {this.closeElementComponent('FancyBorder')}
+                                                      </p>
+                                                    </div>
+                                                    <p>
+                                                      {this.punctuationComponent(');')}
+                                                    </p>
+                                                  </div>
+                                                  <p>
+                                                    {this.punctuationComponent('}')}
                                                   </p>
                                               </code>
                                           </pre>
@@ -1275,9 +3360,9 @@ class Content extends React.Component {
                                       </div>
                                   </div>
                               </div>
-
-
+                            
                           </div>
+
     const routerContents = <div className="main-contents">
                               <h2 id="topTitle">{ titles.router.title }</h2>
 
@@ -1365,16 +3450,223 @@ class Content extends React.Component {
                                                   </p>
                                               </code>
                                           </pre>
+                                      </div>
+                                  </div>
+
+                                  <div className="main-contents__subChapterBox">
+                                      <h4 id="subTitle_1-2">{ titles.router.chapter1.sub2 }</h4>
+                                      <div className="main-contents__indent">
                                           <p className="main-contents__sentences">
+                                            ルートマッチングコンポーネントには Route と Switch があります。
+                                             Route はぞれぞれ path を持ち、URL が Route の path にマッチした場合に描画するコンポーネントをラップします。
+                                            マッチ判定は path の先頭に一致するだけでマッチとみなされます。
+                                            これにより path="/" は常に一致することになるので、通常この path を持つ Route は最後に配置します。
+                                            先頭に配置したい場合は exact path として下さい。
+                                            こうすることで exact を使用した Route のみマッチ判定は全体一致となり、配置の順番を考える必要はなくなります。
+                                          </p>
+                                          <p className="main-contents__sentences">
+                                            複数の Route にマッチした場合に意図せず複数の Route が描画されることを防ぐために Switch を使います。
+                                            Switch は現在の URL と一致する path を持っている Route を探し、見つけた段階で他の Route を無視します。
+                                            これにより意図せず複数 Route が描画されることを防ぐことができますが、特定性の高い Route は特定性の低い
+                                            Route よりも前に配置する必要があります。
                                           </p>
                                           <pre className="main-contents__codeBox">
                                               <code>
                                                   <p>
+                                                    {this.keywordComponent('import')}
+                                                    React
+                                                    {this.keywordComponent(' from')}
+                                                    {this.stringComponent("'react'")}
+                                                    {this.punctuationComponent(';')}
+                                                  </p>
+                                                  <p>
+                                                    {this.keywordComponent('import')}
+                                                    ReactDOM
+                                                    {this.keywordComponent(' from')}
+                                                    {this.stringComponent("'react-dom'")}
+                                                    {this.punctuationComponent(';')}
+                                                  </p>
+                                                  <p>
+                                                    {this.keywordComponent('import')}
+                                                    {this.punctuationComponent('{')}<br />
+                                                    BrowserRouter
+                                                    {this.keywordComponent(' as')}
+                                                    Router, Switch, Route<br />
+                                                    {this.punctuationComponent('}')}
+                                                    {this.keywordComponent(' from')}
+                                                    {this.stringComponent("'react-router-dom'")}
+                                                    {this.punctuationComponent(';')}
+                                                  </p>
+                                                  <p>
+                                                    {this.keywordComponent('import')}
+                                                    {this.punctuationComponent('{')}<br />
+                                                    Home, About, Friends<br />
+                                                    {this.punctuationComponent('}')}
+                                                    {this.keywordComponent(' from')}
+                                                    {this.stringComponent("'./component'")}
+                                                    {this.punctuationComponent(';')}
+                                                  </p>
+                                                  <br />
+                                                  <p>
+                                                    {this.keywordComponent('const')}
+                                                    App
+                                                    {this.operatorComponent('=')}
+                                                    {this.punctuationComponent('()')}
+                                                    {this.operatorComponent('=>')}
+                                                    {this.punctuationComponent('(')}
+                                                  </p>
+                                                  <div className="main-contents__codeBox__indent">
+                                                    <p>
+                                                      {this.elementComponent('div')}
+                                                    </p>
+                                                    <div className="main-contents__codeBox__indent">
+                                                      <p>
+                                                        {this.elementComponent('Switch')}
+                                                      </p>
+                                                      <div className="main-contents__codeBox__indent">
+                                                        <p>
+                                                          {this.routeElementComponent('Route', '"/about"')}
+                                                        </p>
+                                                        <div className="main-contents__codeBox__indent">
+                                                          <p>
+                                                            {this.somethingComponent('About')}
+                                                          </p>
+                                                        </div>
+                                                        <p>
+                                                          {this.closeElementComponent('Route')}
+                                                        </p>
+                                                        <p>
+                                                          {this.routeElementComponent('Route', '"/contact/:id"')}
+                                                        </p>
+                                                        <div className="main-contents__codeBox__indent">
+                                                          <p>
+                                                            {this.somethingComponent('About')}
+                                                          </p>
+                                                        </div>
+                                                        <p>
+                                                          {this.closeElementComponent('Route')}
+                                                        </p>
+                                                        <p>
+                                                          {this.closeElementComponent('Route')}
+                                                        </p>
+                                                        <p>
+                                                          {this.routeElementComponent('Route', '"/contact"')}
+                                                        </p>
+                                                        <div className="main-contents__codeBox__indent">
+                                                          <p>
+                                                            {this.somethingComponent('Friends')}
+                                                          </p>
+                                                        </div>
+                                                        <p>
+                                                          {this.closeElementComponent('Route')}
+                                                        </p>
+                                                        <p>
+                                                          {this.routeElementComponent('Route', '"/"')}
+                                                        </p>
+                                                        <div className="main-contents__codeBox__indent">
+                                                          <p>
+                                                            {this.somethingComponent('Home')}
+                                                          </p>
+                                                        </div>
+                                                        <p>
+                                                          {this.closeElementComponent('Route')}
+                                                        </p>
+                                                      </div>
+                                                      <p>
+                                                        {this.closeElementComponent('Switch')}
+                                                      </p>
+                                                    </div>
+                                                    <p>
+                                                      {this.closeElementComponent('div')}
+                                                    </p>
+                                                  </div>
+                                                  <p>
+                                                    {this.punctuationComponent(')')}
+                                                    <br />
+                                                  </p>
+                                                  <p>
+                                                    ReactDOM
+                                                    {this.punctuationComponent('.')}
+                                                    {this.funcNameComponent('render')}
+                                                    {this.punctuationComponent('(')}
+                                                    <br />
+                                                  </p>
+                                                  <div className="main-contents__codeBox__indent">
+                                                    <p>
+                                                      {this.punctuationComponent('<')}
+                                                      Router
+                                                      {this.punctuationComponent('>')}
+                                                      <div className="main-contents__codeBox__indent">
+                                                        {this.punctuationComponent('<')}
+                                                        App
+                                                        {this.punctuationComponent(' />')}
+                                                      </div>
+                                                      {this.punctuationComponent('</')}
+                                                      Router
+                                                      {this.punctuationComponent('>')}
+                                                      {this.punctuationComponent(',')}
+                                                      <br />
+                                                    </p>
+                                                    <p>
+                                                      document
+                                                      {this.punctuationComponent('.')}
+                                                      {this.funcNameComponent('getElementById')}
+                                                      {this.punctuationComponent('(')}
+                                                      {this.stringComponent("'root'")}
+                                                      {this.punctuationComponent(')')}
+                                                      <br />
+                                                    </p>
+                                                  </div>
+                                                  <p className="main-contents__codeBox__interval">
+                                                    {this.punctuationComponent(')')}
+                                                    {this.punctuationComponent(';')}
+                                                    <br />
+                                                  </p>
+                                              </code>
+                                          </pre>
+                                      </div>
+                                  </div>
+
+                                  <div className="main-contents__subChapterBox">
+                                      <h4 id="subTitle_1-3">{ titles.router.chapter1.sub3 }</h4>
+                                      <div className="main-contents__indent">
+                                          <p className="main-contents__sentences">
+                                            Link は レンダリングされると HTML の a 要素となります。
+                                          </p>
+                                          <pre className="main-contents__codeBox">
+                                              <code>
+                                                  <p>
+                                                    {this.linkElementComponent('"/"')}
+                                                    Home
+                                                    {this.closeElementComponent('Link')}
                                                   </p>
                                               </code>
                                           </pre>
                                           <p className="main-contents__sentences">
+                                            NavLink は Link と同じ働きをしますが、
+                                            描画されているコンポーネントに対応するリンクにスタイリングをすることができます。
                                           </p>
+                                          <pre className="main-contents__codeBox">
+                                              <code>
+                                                  <p>
+                                                    {this.navLinkElementComponent("{ color: 'red' }", '"/"')}
+                                                    Home
+                                                    {this.closeElementComponent('NavLink')}
+                                                  </p>
+                                              </code>
+                                          </pre>
+                                          <p className="main-contents__sentences">
+                                            Redirect を使うことでナビゲーションを強制することができます。
+                                          </p>
+                                          <pre className="main-contents__codeBox">
+                                              <code>
+                                                  <p>
+                                                    {this.redirectElementComponent('"/login"')}
+                                                    Home
+                                                    {this.closeElementComponent('Redirect')}
+                                                  </p>
+                                              </code>
+                                          </pre>
                                       </div>
                                   </div>
 

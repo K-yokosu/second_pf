@@ -2,14 +2,8 @@ import React from 'react';
 
 import Header from '../components/header';
 import Footer from '../components/footer';
-import ScssSide from '../components/scssSidebar';
-import JsSide from '../components/jsSidebar';
-import ReactSide from '../components/reactSidebar';
-import RouterSide from '../components/routerSidebar';
-import ScssContents from '../components/scssContents';
-import JsContents from '../components/jsContents';
-import ReactContents from '../components/reactContents';
-import RouterContents from '../components/routerContents';
+import Sidebar from '../components/Sidebar';
+import Contents from '../components/Contents';
 
 class Home extends React.Component {
   render() {
@@ -82,11 +76,10 @@ class Home extends React.Component {
       router: {
         title: 'Router',
         chapter1: {
-          main: '1. ',
-          sub1: '1-1',
-          sub2: '1-2',
-          sub3: '1-3',
-          sub4: '1-4',
+          main: '1. 主なコンポーネント',
+          sub1: 'Router',
+          sub2: 'Route と Switch',
+          sub3: 'ナビゲーション',
         },
       },
     };
@@ -95,40 +88,8 @@ class Home extends React.Component {
       <>
         <Header />
         <main id="main" className="main">
-          {/* {setMainContent === 'scss'
-            ? (
-              <>
-                <ScssContents titles={titles.scss} />
-                <ReactSide titles={titles.scss} />
-
-              </>
-            )
-            : setMainContent === 'js'
-              ? (
-                <>
-                  <JsContents titles={titles.js} />
-                  <ReactSide titles={titles.js} />
-
-                </>
-              )
-              : setMainContent === 'react'
-                ? (
-                  <>
-                    <ReactContents titles={titles.react} />
-                    <ReactSide titles={titles.react} />
-
-                  </>
-                )
-                : setMainContent === 'router'
-                      && (
-                      <>
-                        <RouterContents titles={titles.router} />
-                        <ReactSide titles={titles.router} />
-
-                      </>
-                      )} */}
-            {/* <ReactContents titles={titles.react} /> */}
-            <ReactSide titles={titles} setSidebar={setMainContent} />
+          <Contents titles={titles} setContents={setMainContent} />
+          <Sidebar titles={titles} setSidebar={setMainContent} />
         </main>
         <Footer />
       </>
