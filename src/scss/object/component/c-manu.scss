@@ -82,5 +82,19 @@
         & a{
             color: $font-color_contents;
         }
+        &__line{
+            text-decoration: line-through;
+            font-size: $font-size_xl; 
+            margin-right: 15px;
+            &:last-child{
+                margin-right: 0;
+            }
+            @include mq(lg){
+                margin: 15px 0;
+            }
+            & a{
+                color: $font-color_contents;
+            }
+        }
     }
 }

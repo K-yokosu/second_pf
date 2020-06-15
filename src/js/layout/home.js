@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 
 import Header from '../components/header';
 import Footer from '../components/footer';
@@ -88,13 +89,18 @@ class Home extends React.Component {
       <>
         <Header />
         <main id="main" className="main">
-          <Contents titles={titles} setContents={setMainContent} />
-          <Sidebar titles={titles} setSidebar={setMainContent} />
+          <div className="main__reference-ontainer">
+            <Contents titles={titles} setContents={setMainContent} />
+            <Sidebar titles={titles} setSidebar={setMainContent} />
+          </div>
         </main>
         <Footer />
       </>
     );
   }
 }
+Home.propTypes = {
+  setMainContent: PropTypes.string.isRequired,
+};
 
 export default Home;

@@ -54,7 +54,7 @@ module.exports = {
   },
   //webpack-dev-server起動時のrootディレクトリを指定
   devServer:{
-    contentBase: outputPath
+    contentBase: outputPath,
   },
   plugins:[
     new HtmlWebPackPlugin({
