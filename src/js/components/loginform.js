@@ -98,7 +98,7 @@ class LoginForm extends React.Component {
             </label>
             <input type="password" id="inputPass" name="pass" className="login-contact__form__input" value={valuePass} onChange={this.handleChangePass} />
 
-            <Link to="/scss">
+            <Link to="/react">
               <input type="submit" name="submit" value="ログイン" className="login-contact__form__submit" disabled={disabled} onClick={this.submitClick} />
             </Link>
 
