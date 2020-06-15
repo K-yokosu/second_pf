@@ -6,6 +6,7 @@ import {
 // layout
 import Home from './home';
 import Login from './login';
+import NoMatch from '../components/noMatch';
 
 const App = () => (
   <BrowserRouter>
@@ -22,6 +23,9 @@ const App = () => (
       </Route>
       <Route path="/router">
         <Home setMainContent="router" />
+      </Route>
+      <Route path="*">
+        <NoMatch />
       </Route>
     </Switch>
   </BrowserRouter>

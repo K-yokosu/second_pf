@@ -1,6 +1,6 @@
 import React from 'react';
 import ClassNames from 'classnames';
-import { Link } from 'react-router-dom';
+import { Link, NavLink } from 'react-router-dom';
 
 class Header extends React.Component {
   constructor(props) {
@@ -41,10 +41,10 @@ class Header extends React.Component {
             </div>
             <nav className={classNameManu}>
               <ul className="header-menu__container">
-                <li className="header-menu__item"><Link to="/scss" onClick={this.handleClickToggleDone}>scss</Link></li>
-                <li className="header-menu__item"><Link to="/js" onClick={this.handleClickToggleDone}>js</Link></li>
-                <li className="header-menu__item"><Link to="/react" onClick={this.handleClickToggleDone}>React</Link></li>
-                <li className="header-menu__item"><Link to="/router" onClick={this.handleClickToggleDone}>Router</Link></li>
+                <li className="header-menu__item"><NavLink activeStyle={{ color: 'red' }} to="/react" onClick={this.handleClickToggleDone}>React</NavLink></li>
+                <li className="header-menu__item"><NavLink activeStyle={{ color: 'red' }} to="/router" onClick={this.handleClickToggleDone}>Router</NavLink></li>
+                <li className="header-menu__item__line"><NavLink activeStyle={{ color: 'red' }} to="/scss" onClick={this.handleClickToggleDone}>scss</NavLink></li>
+                <li className="header-menu__item__line"><NavLink activeStyle={{ color: 'red' }} to="/js" onClick={this.handleClickToggleDone}>js</NavLink></li>
               </ul>
             </nav>
           </div>

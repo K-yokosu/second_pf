@@ -14,7 +14,7 @@ class LoginForm extends React.Component {
   }
 
   static getDerivedStateFromProps() {
-    console.log(localStorage.getItem('login'));
+    // console.log(localStorage.getItem('login'));
   }
 
   formBottonChange = () => {
@@ -74,7 +74,7 @@ class LoginForm extends React.Component {
   submitClick = async () => {
     // 処理
     localStorage.setItem('login', 'true');
-    console.log(localStorage.getItem('login'));
+    // console.log(localStorage.getItem('login'));
   }
 
   render() {
@@ -98,7 +98,7 @@ class LoginForm extends React.Component {
             </label>
             <input type="password" id="inputPass" name="pass" className="login-contact__form__input" value={valuePass} onChange={this.handleChangePass} />
 
-            <Link to="/mypage">
+            <Link to="/scss">
               <input type="submit" name="submit" value="ログイン" className="login-contact__form__submit" disabled={disabled} onClick={this.submitClick} />
             </Link>
 
